@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sign up</title>
+<link rel="stylesheet" href="join.css">
+</head>
+<style type="text/css">
+  form {
+    width: 600px;
+    margin: auto;
+  }
+  form legend {
+    font-size: 20px;
+    text-align: center;
+  }
+  form p span {
+    font-size: 13px;
+    color: rgb(0, 60, 255);
+    font-style: italic;
+  }
+  form .final_btn {
+    text-align: center;
+  }
+  form .image-box {
+  width: 300px;
+  height: 200px;
+  border: 1px solid #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form .image-box img {
+  max-width: 100%;
+  max-height: 100%;
+}
+</style>
+<body>
+  <form name="join_form" action="login.html" method="get" id="join_form" onsubmit="return form_check()">
+    <fieldset>
+      <legend>Sign Up</legend>
+      <p>
+      	<label for="newImage">사진</label>
+      	<div class="image-box">
+    		<img src="url" alt="이미지">
+  		</div>
+        
+        <!--  <img src="images/200x200_.png" alt="My Image">-->
+        <!--  <input type="image" name="u_image" id="u_image">-->
+        
+        <span class="err_image" style="font-size: 13px; color: rgb(0, 60, 255); font-style: italic;">* 자신을 나타낼 이미지를 넣어 주세요.</span>
+      </p>
+      <p>
+        <label for="u_name">이름</label>
+        <input type="text" name="u_name" id="u_name">
+        <br>
+        <span class="err_name"></span>
+      </p>
+      <p>
+        <label for="u_introduce">한 줄 소개</label><br>
+        <input type="text" name="u_introduce" id="u_introduce" style="width:300px;height:200px;">
+        <br>
+        <span class="err_introduce">* 자기소개를 간략히 작성해 주세요.</span>
+      </p>
+      <p>
+        <label for="u_id">아이디</label>
+        <input type="text" name="u_id" id="u_id">
+        <button type="button">아이디 중복확인</button> 
+        <br>
+        <span class="err_id">* 4~12글자까지만 입력 가능합니다.</span>
+      </p>
+      <p>
+        <label for="pwd">비밀번호</label>
+        <input type="password" name="pwd" id="pwd"> 
+        <br>
+        <span class="err_pwd">* 4~12글자까지만 입력 가능합니다.</span>
+      </p>
+      <p>
+        <label for="repwd">비밀번호 확인</label>
+        <input type="password" name="repwd" id="repwd">
+        <br>
+        <span class="err_repwd"></span>
+      </p>
+      <p>
+        <label for="u_nickname">닉네임</label>
+        <input type="text" name="u_nickname" id="u_nickname">
+        <button type="button">닉네임 중복확인</button> 
+        <br>
+        <span class="err_nickname">* 1~6글자까지만 입력 가능합니다.</span>
+      </p>
+      <p class="final_btn">
+        <button type="button" class="btn">이전으로</button>
+        <button type="submit" class="btn">회원가입</button>
+      </p>
+    </fieldset>
+  </form>
+  <script src="JS/signUp.js" type="text/javascript"></script>
+</body>
+</html>
