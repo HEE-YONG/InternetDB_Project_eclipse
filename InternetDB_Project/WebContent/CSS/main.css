@@ -88,7 +88,8 @@ input[id*="answer"]:not(checked) + label span {
     font-family: Montserrat, sans-serif;
     width: 800px;
     height: 500px;
-    display: block;
+    display: flex;
+    flex-direction: column;
     margin: 50% 0 0 -400px;
     position: fixed;
     top: 50%;
@@ -129,6 +130,10 @@ input[id*="answer"]:not(checked) + label span {
     padding: 0;
 }
 
+.content {
+	display: flex;
+}
+
 .modal-img > img {
     height: 100%;
     width: 100%;
@@ -139,21 +144,31 @@ input[id*="answer"]:not(checked) + label span {
     width: 470px;
     height: 470px;
     margin-right: 0px;
+    flex-grow: 0;
 }
 
 .modal-content {
-    padding: 20px;
-    float: left;
+	margin: 20px;
+	flex-grow: 1;
 }
-.modal-content > .user_location {
-    margin-bottom: 10px;
+
+.modal-content * {
+	padding-bottom: 10px; 
 }
-.modal-content > .post_content {
-    margin-bottom: 50px;
+
+.modal-content hr {
+	padding-bottom: 0px;
 }
-.modal-content > .comment_content {
-    margin-left: 30px;
+
+.modal_post_title {
+	font-size: 20px;
+	font-weight: bord;
 }
+
+.modal_post_content {
+	padding-bottom: 0px;
+}
+
 
 
 /************************************   new-post-modal   ******************************************/

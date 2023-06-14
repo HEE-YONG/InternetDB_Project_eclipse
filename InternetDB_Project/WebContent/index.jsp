@@ -163,9 +163,19 @@
                                     class="feed_img" 
                                     style="width:300px; height:300px; object-fit: cover;"
                                     src=" <%= feedRes.getPost_picture() %> "
-                                    alt="">
+                                    alt="<%= feedRes.getPost_idx() %>">
                             <div class="title"><%= feedRes.getPost_title() %></div>
+                            <div class="post<%= feedRes.getPost_idx() %>" style="display: hidden">
+                            	<input type="hidden" id="post_title" value="<%= feedRes.getPost_title() %>">
+                            	<input type="hidden" id="user_idx" value="<%= feedRes.getUser_idx() %>">
+                            	<input type="hidden" id="user_nickname" value="<%= feedRes.getUser_nickname() %>">
+                            	<input type="hidden" id="post_animal" value="<%= feedRes.getAnimal() %>">
+                            	<input type="hidden" id="post_location" value="<%= feedRes.getPost_location() %>">
+                            	<input type="hidden" id="post_picture" value="<%= feedRes.getPost_picture() %>">
+                            	<input type="hidden" id="post_content" value="<%= feedRes.getPost_content() %>">
+                        	</div>
                         </a>
+                        
                     </div>
                     <%
                         }
@@ -203,11 +213,15 @@
                     <img src="./Example Page - Webflow Template_files/5e4b16080b25ed48de4d52a9_photo-1441906363162-903afd0d3d52-square700.jpg" />
                 </div>
                 <div class="modal-content">
-                    <div class="user_idx">User Name</div>
-                    <div class="user_location">User Location</div>
-                    <div class="post_content">Post Content</div>
-                    <div class="comment_user_idx">Comment User Name</div>
-                    <div class="comment_content">Comment Content</div>
+                	<div class="modal_post_title">Post Title</div>
+                    <div class="modal_user_nickname">User Name</div>
+                    <div class="modal_post_location">User Location</div>
+                    <div class="modal_post_animal">animal</div>
+                    <hr>
+                    <div class="modal_post_content">Post Content</div>
+                    <hr>
+                    <div class="modal_comment_user_idx">Comment User Name</div>
+                    <div class="modal_comment_content">Comment Content</div>
                 </div>
             </div>
         </div>

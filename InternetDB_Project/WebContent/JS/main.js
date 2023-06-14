@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var triggers = document.querySelectorAll(".trigger");
 
     triggers.forEach(function (trigger) {
+    	trigger.addEventListener("click", viewModalContent);   
         trigger.addEventListener("click", openmodal);
     });
 
@@ -65,18 +66,41 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /**************************************   MODAL   ********************************************/
 
+function viewModalContent(event) {
+	  var post_idx = event.target.alt;
+	  var post_title = document.querySelector(".post" + post_idx + " #post_title").value;
+	  var user_idx = document.querySelector(".post" + post_idx + " #user_idx").value;
+	  var user_nickname = document.querySelector(".post" + post_idx + " #user_nickname").value;
+	  var post_animal = document.querySelector(".post" + post_idx + " #post_animal").value;
+	  var post_location = document.querySelector(".post" + post_idx + " #post_location").value;
+	  var post_picture = document.querySelector(".post" + post_idx + " #post_picture").value;
+	  var post_content = document.querySelector(".post" + post_idx + " #post_content").value;
+	  
+	  var modalWrapper = document.querySelector(".modal-wrapper");
+	  var modalImage = modalWrapper.querySelector(".modal-img img");
+	  modalImage.src = "./images/" + post_picture;
+	  
+	  var modalTitle = modalWrapper.querySelector(".modal_post_title");
+	  var modalNickname = modalWrapper.querySelector(".modal_user_nickname");
+	  var modalLocation = modalWrapper.querySelector(".modal_post_location");
+	  var modalAnimal = modalWrapper.querySelector(".modal_post_animal");
+	  var modalContent = modalWrapper.querySelector(".modal_post_content");
+	  
+	  modalTitle.textContent = post_title;
+	  modalNickname.textContent = user_nickname;
+	  modalLocation.textContent = post_location;
+	  modalAnimal.textContent = post_animal;
+	  modalContent.textContent = post_content;
+	 
+	  console.log(post_picture);
+}
+
+
 function openmodal(e) {
     var modalWrapper = document.querySelector(".modal-wrapper");
     var body = document.querySelector(".section");
     var nav = document.querySelector(".navigation-bar");
     var badge = document.querySelector(".plus_badge");
-    
-    var postIdx = null
-    postIdx = e.target.alt;
-    var modalImage = modalWrapper.querySelector(".modal-img img");
-    modalImage.src = "./images/potato.jpg";
-
-    console.log(postIdx);
 
     modalWrapper.classList.toggle("open");
     body.classList.toggle("blur-it");
