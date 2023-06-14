@@ -160,7 +160,7 @@
                     <div role="listitem" class="w-dyn-item w-col w-col-4">
                         <a href="#" class="photo-link-block w-inline-block btn trigger">
                             <img
-                                    class="feed_img"
+                                    class="feed_img" 
                                     style="width:300px; height:300px; object-fit: cover;"
                                     src=" <%= feedRes.getPost_picture() %> "
                                     alt="">
