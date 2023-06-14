@@ -102,7 +102,7 @@
 	<div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div>
 	<div class="profile">
 		<img src="userPic.jpg" alt="Profile Picture" class="profile-image">
-		<h2 class="profile-name">Your Name</h2>
+		<h2 class="profile-name"><%String user_nickname =(String) session.getAttribute("user_nickname"); out.println(user_nickname);%></h2>
 		<p class="profile-intro">Hello, I'm John Doe! Nice to meet you.</p>
 	</div>
 

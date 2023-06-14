@@ -40,8 +40,8 @@
                 <h1 class="brand-text">PETstagram</h1>
             </a>
             <nav role="navigation" class="navigation-menu w-nav-menu">
-                <a href="login.html" aria-current="page" class="navigation-link w-nav-link w--current" style="max-width: 940px;">Login</a>
-                <a href="https://newport-template.webflow.io/blog" class="navigation-link w-nav-link" style="max-width: 940px;">
+                <a href="login.jsp" aria-current="page" class="navigation-link w-nav-link w--current" style="max-width: 940px;">Login</a>
+                <a href="index.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">
                     Feed
                 </a>
                 <a href="mypage.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">

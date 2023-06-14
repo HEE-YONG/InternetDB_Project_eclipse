@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="CSS/login.css">
 </head>
 <body>
+<form action="login-servlet" method="post" id="login-form">
 	<div class="board_wrap">
 		<div class="board_title">
 			<strong>Log in</strong>
@@ -15,23 +16,29 @@
 			<div class="board_login">
         <div class="id_wrap">
           <dl>
-            <dt>ID :</dt> 
-            <dd><input type="text"></dd>
+            <dt>E - mail :</dt> 
+            <dd><input type="text" name="user_email"></dd>
           </dl>
         </div>
         <div class="pw_wrap">
           <dl>
-            <dt>PW :</dt> 
-            <dd><input type="password"></dd>
+            <dt>Password :</dt> 
+            <dd><input type="password" name="user_pw"></dd>
           </dl>
         </div>
 			</div>
 			<div class="bt_wrap">
-				<a href="index.jsp" class="on">sign in</a>
+				<a href="#" class="on" onclick="document.getElementById('login-form').submit();">sign in</a>
           		<a href="signUp.html">sign up</a>
-				<a href="index.jsp">undo</a>
+				<a href="#" onclick="resetForm()">reset</a>
 			</div>
 		</div>
 	</div>
+	</form>
+	<script>
+  function resetForm() {
+    document.getElementById("login-form").reset();
+  }
+</script>
 </body>
 </html>
