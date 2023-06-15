@@ -93,6 +93,35 @@ public class PostDao {
         return filteredPosts;
     }
 
+    public List<FeedRes> myPost(int user_idx) {
+        String query = "select * from Post join User ON Post.user_idx = User.user_idx where User.user_idx = ?";
+        List<FeedRes> myPosts = new ArrayList<>();
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, user_idx);
+            
+            resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                FeedRes feedRes = new FeedRes(
+                        resultSet.getInt("post_idx"),
+                        resultSet.getInt("user_idx"),
+                        resultSet.getString("user_nickname"),
+                        resultSet.getString("post_title"),
+                        resultSet.getString("post_picture"),
+                        resultSet.getString("post_location"),
+                        resultSet.getString("animal"),
+                        resultSet.getString("post_content")
+                );
+                myPosts.add(feedRes);
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Error :" + e.getMessage());
+        }
+        return myPosts;
+    }
 //    private void closeResources() {
 //        try {
 //            if (resultSet != null) resultSet.close();
