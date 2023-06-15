@@ -80,24 +80,29 @@
 		data-duration="400" data-easing="ease" data-easing2="ease"
 		role="banner" class="navigation-bar w-nav">
 		<div class="w-container">
-			<a href="index.jsp" aria-current="page"
-				class="brand-link w-nav-brand w--current" aria-label="home">
-				<h1 class="brand-text">PetStagram</h1>
-			</a>
-
-			<nav role="navigation" class="navigation-menu w-nav-menu">
-				<a href="login.html" aria-current="page"
-					class="navigation-link w-nav-link w--current"
-					style="max-width: 940px;">Login</a> 
-				<a href="index.jsp"
-					class="navigation-link w-nav-link" style="max-width: 940px;">
-					Feed </a> 
-				<a href="mypage.jsp" class="navigation-link w-nav-link"
-					style="max-width: 940px;"> My Page </a>
-			</nav>
-
-
-		</div>
+        	<a href="index.jsp" aria-current="page" class="brand-link w-nav-brand w--current" aria-label="home">
+            	<h1 class="brand-text">PETstagram</h1>
+        	</a>
+        	<nav role="navigation" class="navigation-menu w-nav-menu">
+	            <%
+	            String user_idx = (String) session.getAttribute("user_nickname");
+	            if (user_idx != null) {
+	            %>
+	            <a id="logout-nav" href="index.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
+	               style="max-width: 940px;">Logout</a>
+	            <%
+	            } else {
+	            %>
+	            <a id="login-nav" href="login.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
+	               style="max-width: 940px;">Login</a>
+	            <%
+	            }
+	            %>
+	            <a href="index.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">Feed</a>
+	            <a href="mypage.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">My Page</a>
+	        </nav>
+    	</div>
+		
 	</div>
 	<div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div>
 	<div class="profile">

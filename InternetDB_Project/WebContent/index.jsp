@@ -34,25 +34,33 @@
 </head>
 <body>
     <div data-collapse="medium" data-animation="default" data-duration="400" data-easing="ease" data-easing2="ease" role="banner" class="navigation-bar w-nav" style="z-index: 0">
-        <div class="w-container">
-            <a href="index.jsp" aria-current="page" class="brand-link w-nav-brand w--current"
-               aria-label="home">
-                <h1 class="brand-text">PETstagram</h1>
-            </a>
-            <nav role="navigation" class="navigation-menu w-nav-menu">
-                <a href="login.jsp" aria-current="page" class="navigation-link w-nav-link w--current" style="max-width: 940px;">Login</a>
-                <a href="index.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">
-                    Feed
-                </a>
-                <a href="mypage.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">
-                    My Page
-                </a>
-            </nav>
-            <div class="hamburger-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button"
-                 tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
-                <div class="w-icon-nav-menu"></div>
-            </div>
+    <div class="w-container">
+        <a href="index.jsp" aria-current="page" class="brand-link w-nav-brand w--current" aria-label="home">
+            <h1 class="brand-text">PETstagram</h1>
+        </a>
+        <nav role="navigation" class="navigation-menu w-nav-menu">
+            <%
+            String user_idx = (String) session.getAttribute("user_nickname");
+            if (user_idx != null) {
+            %>
+            <a id="logout-nav" href="logout.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
+               style="max-width: 940px;">Logout</a>
+            <%
+            } else {
+            %>
+            <a id="login-nav" href="login.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
+               style="max-width: 940px;">Login</a>
+            <%
+            }
+            %>
+            <a href="index.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">Feed</a>
+            <a href="mypage.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">My Page</a>
+        </nav>
+        <div class="hamburger-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button"
+             tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
+            <div class="w-icon-nav-menu"></div>
         </div>
+    </div>
 
         <div class="filter">
             <form id="filter-form" action="post-servlet" method="post">
@@ -160,7 +168,7 @@
                     <div role="listitem" class="w-dyn-item w-col w-col-4">
                         <a href="#" class="photo-link-block w-inline-block btn trigger">
                             <img
-                                    class="feed_img" 
+                                    class="feed_img"
                                     style="width:300px; height:300px; object-fit: cover;"
                                     src=" <%= feedRes.getPost_picture() %> "
                                     alt="">
