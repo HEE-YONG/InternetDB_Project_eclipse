@@ -54,7 +54,17 @@
             }
             %>
             <a href="index.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">Feed</a>
+            <%
+            if (user_idx != null) {
+            %>
             <a href="mypage.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">My Page</a>
+            <%
+            } else {
+            %>
+            <a href="login.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">My Page</a>
+            <%
+            }
+            %>
         </nav>
         <div class="hamburger-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button"
              tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
