@@ -111,8 +111,8 @@
 	<div class="profile">
 	<%
 		UserDao userDao = new UserDao();
-		int idx =(Integer) session.getAttribute("user_idx");
-		UserRes myInformation = userDao.myInformation(idx);
+		String idx =(String) session.getAttribute("user_idx");
+		UserRes myInformation = userDao.myInformation(Integer.valueOf(idx));
 		
 	%>
 		<img src="<%= myInformation.getProfile_image()%>" alt="Profile Picture" class="profile-image">
@@ -132,7 +132,7 @@
 
                         if (myPosts == null || myPosts.isEmpty()) {
                             PostDao postDao = new PostDao();
-                            myPosts = postDao.myPost(idx);
+                            myPosts = postDao.myPost(Integer.parseInt(idx));
                         }
 
                         for (FeedRes feedRes : myPosts) {
