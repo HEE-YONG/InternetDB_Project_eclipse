@@ -183,6 +183,11 @@
                     <div class="modal_post_animal">animal</div>
                     <hr>
                     <div class="modal_post_content">Post Content</div>
+                    <form id="modifyForm" action="post-servlet" method="post" style="display:none">
+                    	<input type="hidden" name="action" value="modifyPost">
+                    	<input type="hidden" id="post_idx_content" name="post_idx" />
+                    	<input class="modified-content" type="text" name="modified-content">
+                    </form>
                     <hr>
                     <div class="modal_comment_user_idx">Comment User Name</div>
                     <div class="modal_comment_content">Comment Content</div>
@@ -193,7 +198,8 @@
                 	<input type="hidden" id="post_idx_input" name="post_idx" />
                 	<input type="submit" value="Delete" />
             	</form>
-            	<input type="button" name="Modify" value="modify">
+            	<input class="modifybutton" type="button" name="modify" value="Modify">
+            	<input class="completebutton" type="button" name="modify" value="Complete" style="display:none" onclick="document.getElementById('modifyForm').submit();">
             	</div>
             </div>
         </div>

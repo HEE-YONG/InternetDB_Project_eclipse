@@ -42,21 +42,35 @@ public class PostDao {
         return n == 1;
     }
     
-    public boolean deletePost(int idx) {
+    public void deletePost(int idx) {
         String query = "delete from Post where post_idx = ?";
-        int n = 0;
 
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, idx);
 
-            n = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
         } catch (Exception e) {
             System.out.println("Error :" + e.getMessage());
         }
 
-        return n == 1;
+    }
+    
+    public void modifyPost(int idx, String modifiedContent) {
+        String query = "update Post set post_content = ? where post_idx = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, modifiedContent);
+            preparedStatement.setInt(2, idx);
+
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("Error :" + e.getMessage());
+        }
+
     }
 
     public List<FeedRes> filterPost(String animal, String region) {

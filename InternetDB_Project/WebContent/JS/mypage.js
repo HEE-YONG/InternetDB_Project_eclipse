@@ -39,6 +39,7 @@ function viewModalContent(event) {
 	  var post_picture = document.querySelector(".post" + post_idx + " #post_picture").value;
 	  var post_content = document.querySelector(".post" + post_idx + " #post_content").value;
 	  document.getElementById("post_idx_input").value = post_idx;
+	  document.getElementById("post_idx_content").value = post_idx;
 	  
 	  var modalWrapper = document.querySelector(".modal-wrapper");
 	  var modalImage = modalWrapper.querySelector(".modal-img img");
@@ -72,6 +73,26 @@ function openmodal(e) {
     profile.classList.toggle("blur-it");
     return false;
 }
+
+
+/****************************************   MODIFY  **********************************************/
+
+var modifybutton = document.querySelector(".modifybutton");
+var completebutton = document.querySelector(".completebutton");
+var modifyForm = document.querySelector("#modifyForm");
+var modal_post_content = document.querySelector(".modal_post_content");
+var modified_content = document.querySelector(".modified-content");
+
+
+
+modifybutton.addEventListener('click', () => {
+	  modifybutton.style.display = "none";
+	  completebutton.style.display = "block";
+	  modifyForm.style.display = "block";
+	  modal_post_content.style.display = "none";
+	  modified_content.value = modal_post_content.innerText;
+	});
+
 
 /****************************************   FEED  **********************************************/
 
