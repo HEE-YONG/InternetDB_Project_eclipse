@@ -91,18 +91,18 @@
 	            String user_idx = (String) session.getAttribute("user_nickname");
 	            if (user_idx != null) {
 	            %>
-	            <a id="logout-nav" href="logout.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
+	            <a id="logout-nav" href="logout.jsp" aria-current="page" class="navigation-link w-nav-link"
 	               style="max-width: 940px;">Logout</a>
 	            <%
 	            } else {
 	            %>
-	            <a id="login-nav" href="login.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
+	            <a id="login-nav" href="login.jsp" aria-current="page" class="navigation-link w-nav-link"
 	               style="max-width: 940px;">Login</a>
 	            <%
 	            }
 	            %>
 	            <a href="index.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">Feed</a>
-	            <a href="mypage.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">My Page</a>
+	            <a href="mypage.jsp" class="navigation-link w-nav-link" style="max-width: 940px; color: #333">My Page</a>
 	        </nav>
     	</div>
 		
