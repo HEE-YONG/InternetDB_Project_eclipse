@@ -140,7 +140,7 @@ public class PostDao {
     }
     
     public List<FeedRes> myPost(int user_idx) {
-        String query = "select * from Post join User ON Post.user_idx = User.user_idx where User.user_idx = ?";
+        String query = "select * from Post join User ON Post.user_idx = User.user_idx where User.user_idx = ? order by Post.post_idx desc";
         List<FeedRes> myPosts = new ArrayList<>();
 
         try {
