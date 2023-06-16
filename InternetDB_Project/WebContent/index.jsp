@@ -252,9 +252,12 @@
     </div>
 
     <!-- Add New Post Badge -->
+    <%if (user_idx != null) {%>
     <a class="plus_badge post-trigger" style="cursor: pointer;">
         <img src="images/plus_icon.png"/>
     </a>
+    <%} else {}%>
+   
 
     <!-- Add New Post Modal -->
     <div class="post-modal-wrapper">
@@ -264,6 +267,7 @@
             </div>
             <form class="new-post-form" action="post-servlet" method="post">
                 <input type="hidden" name="action" value="addNewPost">
+                <input type="hidden" name="user_idx" value="<%= user_idx %>">
                 <div class="new-post-content">
                     <div class="new-post-content-left">
                         <div class="new-image-input">

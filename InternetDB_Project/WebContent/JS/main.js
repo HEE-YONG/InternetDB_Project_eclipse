@@ -92,8 +92,6 @@ function viewModalContent(event) {
 	  modalLocation.textContent = post_location;
 	  modalAnimal.textContent = post_animal;
 	  modalContent.textContent = post_content;
-	 
-	  console.log(post_picture);
 }
 
 
