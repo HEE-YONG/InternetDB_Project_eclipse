@@ -187,6 +187,14 @@
                     <div class="modal_comment_user_idx">Comment User Name</div>
                     <div class="modal_comment_content">Comment Content</div>
                 </div>
+                <div>
+                <form id="deleteForm" action="post-servlet" method="post">
+                	<input type="hidden" name="action" value="deletePost">
+                	<input type="hidden" id="post_idx_input" name="post_idx" />
+                	<input type="submit" value="Delete" />
+            	</form>
+            	<input type="button" name="Modify" value="modify">
+            	</div>
             </div>
         </div>
     </div>
