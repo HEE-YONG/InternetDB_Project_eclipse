@@ -40,7 +40,7 @@
         </a>
         <nav role="navigation" class="navigation-menu w-nav-menu">
             <%
-            String user_idx = (String) session.getAttribute("user_nickname");
+            String user_idx = (String) session.getAttribute("user_idx");
             if (user_idx != null) {
             %>
             <a id="logout-nav" href="logout.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
@@ -125,7 +125,13 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <%	if (user_idx != null) { %> 
                     <div>
+                    <%	} else {%>
+                    <div style="display:none">
+                    <%} %>
+                    	<input type="hidden" name="user_idx" value="<%= user_idx %>">
                         <input type="checkbox" id="answer02" />
                         <label for="answer02">Region <span>▽</span></label>
                         <div style="display: flex; flex-direction: row">

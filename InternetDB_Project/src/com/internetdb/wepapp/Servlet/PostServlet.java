@@ -73,9 +73,21 @@ public class PostServlet extends HttpServlet {
     private void filter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String animal = request.getParameter("animal");
         String region = request.getParameter("region");
+        String user_idx = request.getParameter("user_idx");
         
         PostDao postDao = new PostDao();
-        List<FeedRes> filteredPosts = postDao.filterPost(animal, region);
+        List<FeedRes> filteredPosts;
+        
+        if (user_idx == null) {
+        	filteredPosts = postDao.filterPost(animal, "");
+        } else {
+        	String user_region = postDao.findUserRegion(Integer.valueOf(user_idx));
+        	if (region.equals("whole region")) {
+        		filteredPosts = postDao.filterPost(animal, region);
+        	} else {
+        		filteredPosts = postDao.filterPost(animal, user_region);
+        	}
+        }
 
         request.setAttribute("filteredPosts", filteredPosts);
 

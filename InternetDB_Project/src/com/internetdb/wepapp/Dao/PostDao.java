@@ -7,6 +7,7 @@ import com.internetdb.wepapp.Dto.Post;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,30 +65,24 @@ public class PostDao {
         List<FeedRes> filteredPosts = new ArrayList<>();
 
         try {
-            if (!animal.equals("") && !animal.equals("all"))
-                query += " where animal = ?";
-
-//            if (!animal.equals("all") && !region.equals("whole region")) {
-//                query += " where animal = ? and region = ?";
-//            } else if (!animal.equals("all")) {
-//                query += " where animal = ?";
-//            } else if (!region.equals("whole region")) {
-//                query += " where region = ?";
-//            }
+            if (!animal.equals("") && !animal.equals("all") && !region.equals("") && !region.equals("whole region")) {
+            	query += " where animal = ? and post_location = ?";
+            } else if (!animal.equals("") && !animal.equals("all")) {
+            	query += " where animal = ?";
+            } else if (!region.equals("") && !region.equals("whole region")) {
+            	query += " where post_location = ?";
+            }
 
             preparedStatement = connection.prepareStatement(query);
 
-            if (!animal.equals("") && !animal.equals("all"))
-                preparedStatement.setString(1, animal);
-
-//            if (!animal.equals("all") && !region.equals("whole region")) {
-//                preparedStatement.setString(1, animal);
-//                preparedStatement.setString(2, region);
-//            } else if (!animal.equals("all")) {
-//                preparedStatement.setString(1, animal);
-//            } else if (!region.equals("whole region")) {
-//                preparedStatement.setString(2, region);
-//            }
+            if (!animal.equals("") && !animal.equals("all") && !region.equals("") && !region.equals("whole region")) {
+            	preparedStatement.setString(1, animal);
+            	preparedStatement.setString(2, region);
+            } else if (!animal.equals("") && !animal.equals("all")) {
+            	preparedStatement.setString(1, animal);
+            } else if (!region.equals("") && !region.equals("whole region")) {
+            	preparedStatement.setString(1, region);
+            }
 
             resultSet = preparedStatement.executeQuery();
 
@@ -110,6 +105,24 @@ public class PostDao {
         return filteredPosts;
     }
 
+    public String findUserRegion(int user_idx) {
+    	String query = "select user_location from User where user_idx = ?";
+    	String user_location = null;
+    	try {
+			preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, user_idx);
+			
+			resultSet = preparedStatement.executeQuery();
+			resultSet.next();
+			user_location = resultSet.getString("user_location");
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+    	
+    	return user_location;
+    }
+    
     public List<FeedRes> myPost(int user_idx) {
         String query = "select * from Post join User ON Post.user_idx = User.user_idx where User.user_idx = ?";
         List<FeedRes> myPosts = new ArrayList<>();
