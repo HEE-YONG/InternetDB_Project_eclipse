@@ -1,20 +1,10 @@
 function form_check() {
-  //let u_image = document.getElementById("u_image");
-  let u_name = document.getElementById("u_name");
   let u_introduce = document.getElementById("u_introduce");
   let u_id = document.getElementById("u_id");
   let pwd = document.getElementById("pwd");
   let repwd = document.getElementById("repwd");
   let u_nickname = document.getElementById("u_nickname");
   
-  let file = input.files[0];
-  let newImage = document.createElement("img");
-  newImage.src = URL.createObjectURL(file);
-
-  let container = document.querySelector(".new-image");
-  container.appendChild(newImage);
-  container.style.display = "block";
-  document.querySelector(".new-image-input").style.display = "none";
   
   function red_err_txt() { 
     err_txt.style.color = "red";
@@ -25,13 +15,6 @@ function form_check() {
     red_err_txt();
     err_txt.textContent = "* 이미지를 넣어 주세요.";
     u_image.focus();
-    return false;
-  }
-  if (u_name.value == "") {
-    var err_txt = document.querySelector(".err_name");
-    red_err_txt();
-    err_txt.textContent = "* 이름을 입력 하세요.";
-    u_name.focus();
     return false;
   }
   if (u_introduce.value == "") {
@@ -86,3 +69,21 @@ function form_check() {
     return false;
   }
 }
+
+function loadFile(input) {
+    let file = input.files[0];
+    let newImage = document.createElement("img");
+
+    newImage.src = URL.createObjectURL(file);
+    newImage.style.width = "300px";
+    newImage.style.height = "300px";
+    newImage.style.marginLeft = "28px";
+    
+    let container = document.querySelector(".new-image");
+    container.appendChild(newImage);
+    container.style.display = "block";
+
+    document.querySelector(".new-image-input").style.display = "none";
+}
+
+

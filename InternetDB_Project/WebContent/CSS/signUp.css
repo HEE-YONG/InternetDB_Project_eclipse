@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.board_wrap {
+  width: 1000px;
+  margin: 100px auto;
+}
+
+.board_title {
+  margin-bottom: 30px;
+}
+
+.board_title strong {
+    font-size: 3rem;
+}
+
+.bt_wrap {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0px;
+}
+
+.bt_wrap > a {
+  display: inline-block;
+  min-width: 80px;
+  margin-left: 10px;
+  padding: 10px;
+  border: 1px solid #000;
+  border-radius: 2px;
+  font-size: 1.4rem;
+}
+
+.bt_wrap > input {
+  margin-left: 0px;
+  font-size: 1.4rem;
+  min-width: 80px;
+  padding: 10px;
+  display: inline-block;
+}
+
+.bt_wrap > input.on{
+  background: #000;
+  color: #fff;
+}
+
+.board_signUp {
+  display: block;
+  margin: auto;
+  margin-top: 70px;
+  width: 340px;
+  height: 830px;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+.id_wrap dl,
+.pw_wrap dl,
+.repw_wrap dl,
+.nickname_wrap dl,
+.location_wrap dl {
+  padding-left: 20px;
+}
+
+.id_wrap dt,
+.id_wrap dd,
+.pw_wrap dt,
+.pw_wrap dd,
+.repw_wrap dt,
+.repw_wrap dd,
+.nickname_wrap dt,
+.nickname_wrap dd,
+.location_wrap dt,
+.location_wrap dd {
+  display: inline-block;
+  padding: 10px;
+}
+
+.id_wrap dt,
+.pw_wrap dt, 
+.repw_wrap dt,
+.nickname_wrap dt,
+.location_wrap dt {
+  font-size: 15px;
+}
+
+.img_wrap {
+  margin-top: 40px;
+}
+
+.id_wrap dd,
+.pw_wrap dd,
+.repw_wrap dd,
+.nickname_wrap dd,
+.location_wrap dd {
+  padding-left: 18px;
+}
+
+.introduce_wrap > div {
+	padding: 10px;
+	padding-left:28px;
+}
+
+.introduce_wrap > textarea {
+	margin-left:28px;	
+	resize: none;
+}
+
+.new-image-input {
+	margin-left: 28px;
+	height: 300px;
+	width: 300px;
+	border: 1px solid black;
+}
+
+.new-image-input h3 {
+	padding-top: 140px;
+	text-align: center;
+}
