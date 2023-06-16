@@ -172,8 +172,9 @@
                 <div role="list" class="w-dyn-items w-row">
                     <%
                         List<FeedRes> filteredPosts = (List<FeedRes>) request.getAttribute("filteredPosts");
-
-                        if (filteredPosts == null || filteredPosts.isEmpty()) {
+						String filterCheck = (String) request.getAttribute("filterCheck");
+                                		
+                        if (filteredPosts == null || filteredPosts.isEmpty() && filterCheck == null) {
                             PostDao postDao = new PostDao();
                             filteredPosts = postDao.filterPost("", "");
                         }

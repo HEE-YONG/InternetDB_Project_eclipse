@@ -104,6 +104,7 @@ public class PostServlet extends HttpServlet {
         }
 
         request.setAttribute("filteredPosts", filteredPosts);
+        request.setAttribute("filterCheck", "ok");
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
