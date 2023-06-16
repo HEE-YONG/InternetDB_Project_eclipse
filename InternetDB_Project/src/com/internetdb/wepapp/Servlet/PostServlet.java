@@ -36,6 +36,9 @@ public class PostServlet extends HttpServlet {
             case "deletePost":
                 deletePost(request, response);
                 break;
+            case "modifyPost":
+                modifyPost(request, response);
+                break;
             default:
                 break;
         }
@@ -59,6 +62,16 @@ public class PostServlet extends HttpServlet {
         }
 
         response.sendRedirect("index.jsp");
+    }
+	
+	private void modifyPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int post_idx = Integer.parseInt(request.getParameter("post_idx"));
+		String modifiedContent = request.getParameter("modified-content");
+		
+        PostDao postDao = new PostDao();
+        postDao.modifyPost(post_idx, modifiedContent);
+
+        response.sendRedirect("mypage.jsp");
     }
 	
 	private void deletePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
