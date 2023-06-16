@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.remove("blur-it");
         nav.classList.remove("blur-it");
         badge.classList.remove("blur-it");
+        
     });
 
 

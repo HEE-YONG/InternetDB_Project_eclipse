@@ -33,6 +33,9 @@ public class PostServlet extends HttpServlet {
             case "filter":
                 filter(request, response);
                 break;
+            case "deletePost":
+                deletePost(request, response);
+                break;
             default:
                 break;
         }
@@ -56,6 +59,15 @@ public class PostServlet extends HttpServlet {
         }
 
         response.sendRedirect("index.jsp");
+    }
+	
+	private void deletePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int post_idx = Integer.parseInt(request.getParameter("post_idx"));
+
+        PostDao postDao = new PostDao();
+        postDao.deletePost(post_idx);
+
+        response.sendRedirect("mypage.jsp");
     }
 
     private void filter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

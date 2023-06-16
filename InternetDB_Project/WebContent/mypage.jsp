@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.internetdb.wepapp.Dto.FeedRes"%>
+<%@ page import="com.internetdb.wepapp.Dto.UserRes"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.internetdb.wepapp.Servlet.PostServlet"%>
 <%@ page import="com.internetdb.wepapp.Dao.PostDao"%>
+<%@ page import="com.internetdb.wepapp.Dao.UserDao"%>
 <!DOCTYPE html>
 <html data-wf-domain="newport-template.webflow.io"
 	data-wf-page="5e4b16080b25ed0d294d526a"
@@ -74,36 +76,51 @@
 .profile-intro {
 	margin-top: 5px;
 }
+
 </style>
 <body>
 	<div data-collapse="medium" data-animation="default"
 		data-duration="400" data-easing="ease" data-easing2="ease"
-		role="banner" class="navigation-bar w-nav">
+		role="banner" class="navigation-bar w-nav" style="z-index: 0">
 		<div class="w-container">
-			<a href="index.jsp" aria-current="page"
-				class="brand-link w-nav-brand w--current" aria-label="home">
-				<h1 class="brand-text">PetStagram</h1>
-			</a>
-
-			<nav role="navigation" class="navigation-menu w-nav-menu">
-				<a href="login.html" aria-current="page"
-					class="navigation-link w-nav-link w--current"
-					style="max-width: 940px;">Login</a> 
-				<a href="index.jsp"
-					class="navigation-link w-nav-link" style="max-width: 940px;">
-					Feed </a> 
-				<a href="mypage.jsp" class="navigation-link w-nav-link"
-					style="max-width: 940px;"> My Page </a>
-			</nav>
-
-
-		</div>
+        	<a href="index.jsp" aria-current="page" class="brand-link w-nav-brand w--current" aria-label="home">
+            	<h1 class="brand-text">PETstagram</h1>
+        	</a>
+        	<nav role="navigation" class="navigation-menu w-nav-menu">
+	            <%
+	            String user_idx = (String) session.getAttribute("user_nickname");
+	            if (user_idx != null) {
+	            %>
+	            <a id="logout-nav" href="logout.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
+	               style="max-width: 940px;">Logout</a>
+	            <%
+	            } else {
+	            %>
+	            <a id="login-nav" href="login.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
+	               style="max-width: 940px;">Login</a>
+	            <%
+	            }
+	            %>
+	            <a href="index.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">Feed</a>
+	            <a href="mypage.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">My Page</a>
+	        </nav>
+    	</div>
+		
 	</div>
 	<div class="w-nav-overlay" data-wf-ignore="" id="w-nav-overlay-0"></div>
 	<div class="profile">
-		<img src="userPic.jpg" alt="Profile Picture" class="profile-image">
+	<%
+		UserDao userDao = new UserDao();
+		int idx =(Integer) session.getAttribute("user_idx");
+		UserRes myInformation = userDao.myInformation(idx);
+		
+	%>
+		<img src="<%= myInformation.getProfile_image()%>" alt="Profile Picture" class="profile-image">
 		<h2 class="profile-name"><%String user_nickname =(String) session.getAttribute("user_nickname"); out.println(user_nickname);%></h2>
-		<p class="profile-intro">Hello, I'm John Doe! Nice to meet you.</p>
+		<p class="profile-intro"><%= myInformation.getMember_introduce()%></p>
+		
+		<br><br>
+		<h3>My Posts</h3>
 	</div>
 
 	<div class="section wf-section">
@@ -111,14 +128,14 @@
 			<div class="w-dyn-list">
 				<div role="list" class="w-dyn-items w-row">
 					<%
-                        List<FeedRes> filteredPosts = (List<FeedRes>) request.getAttribute("filteredPosts");
+                        List<FeedRes> myPosts = (List<FeedRes>) request.getAttribute("myPosts");
 
-                        if (filteredPosts == null || filteredPosts.isEmpty()) {
+                        if (myPosts == null || myPosts.isEmpty()) {
                             PostDao postDao = new PostDao();
-                            filteredPosts = postDao.filterPost("", "");
+                            myPosts = postDao.myPost(idx);
                         }
 
-                        for (FeedRes feedRes : filteredPosts) {
+                        for (FeedRes feedRes : myPosts) {
 
                     %>
                     <div role="listitem" class="w-dyn-item w-col w-col-4">
@@ -127,8 +144,17 @@
                                     class="feed_img"
                                     style="width:300px; height:300px; object-fit: cover;"
                                     src=" <%= feedRes.getPost_picture() %> "
-                                    alt="">
+                                    alt="<%= feedRes.getPost_idx() %>">
                             <div class="title"><%= feedRes.getPost_title() %></div>
+                            <div class="post<%= feedRes.getPost_idx() %>" style="display: hidden">
+                            	<input type="hidden" id="post_title" value="<%= feedRes.getPost_title() %>">
+                            	<input type="hidden" id="user_idx" value="<%= feedRes.getUser_idx() %>">
+                            	<input type="hidden" id="user_nickname" value="<%= feedRes.getUser_nickname() %>">
+                            	<input type="hidden" id="post_animal" value="<%= feedRes.getAnimal() %>">
+                            	<input type="hidden" id="post_location" value="<%= feedRes.getPost_location() %>">
+                            	<input type="hidden" id="post_picture" value="<%= feedRes.getPost_picture() %>">
+                            	<input type="hidden" id="post_content" value="<%= feedRes.getPost_content() %>">
+                        	</div>
                         </a>
                     </div>
                     <%
@@ -140,27 +166,38 @@
 	</div>
 
 
-	<!-- Modal -->
-	<div class="modal-wrapper">
-		<div class="modal">
-			<div class="head">
-				<button class="btn-close trigger">X</button>
-			</div>
-			<div class="content">
-				<div class="modal-img">
-					<img
-						src="./Example Page - Webflow Template_files/5e4b16080b25ed48de4d52a9_photo-1441906363162-903afd0d3d52-square700.jpg" />
-				</div>
-				<div class="modal-content">
-					<div class="user_idx">User Name</div>
-					<div class="user_location">User Location</div>
-					<div class="post_content">Post Content</div>
-					<div class="comment_user_idx">Comment User Name</div>
-					<div class="comment_content">Comment Content</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<!-- Feed Post Modal -->
+    <div class="modal-wrapper">
+        <div class="modal">
+            <div class="head">
+                <button class="btn-close trigger">X</button>
+            </div>
+            <div class="content">
+                <div class="modal-img">
+                    <img src="./Example Page - Webflow Template_files/5e4b16080b25ed48de4d52a9_photo-1441906363162-903afd0d3d52-square700.jpg" />
+                </div>
+                <div class="modal-content">
+                	<div class="modal_post_title">Post Title</div>
+                    <div class="modal_user_nickname">User Name</div>
+                    <div class="modal_post_location">User Location</div>
+                    <div class="modal_post_animal">animal</div>
+                    <hr>
+                    <div class="modal_post_content">Post Content</div>
+                    <hr>
+                    <div class="modal_comment_user_idx">Comment User Name</div>
+                    <div class="modal_comment_content">Comment Content</div>
+                </div>
+                <div>
+                <form id="deleteForm" action="post-servlet" method="post">
+                	<input type="hidden" name="action" value="deletePost">
+                	<input type="hidden" id="post_idx_input" name="post_idx" />
+                	<input type="submit" value="Delete" />
+            	</form>
+            	<input type="button" name="Modify" value="modify">
+            	</div>
+            </div>
+        </div>
+    </div>
 	
 	<div class="footer wf-section">
         <div class="w-container">
