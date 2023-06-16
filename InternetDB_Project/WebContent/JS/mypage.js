@@ -38,6 +38,7 @@ function viewModalContent(event) {
 	  var post_location = document.querySelector(".post" + post_idx + " #post_location").value;
 	  var post_picture = document.querySelector(".post" + post_idx + " #post_picture").value;
 	  var post_content = document.querySelector(".post" + post_idx + " #post_content").value;
+	  document.getElementById("post_idx_input").value = post_idx;
 	  
 	  var modalWrapper = document.querySelector(".modal-wrapper");
 	  var modalImage = modalWrapper.querySelector(".modal-img img");

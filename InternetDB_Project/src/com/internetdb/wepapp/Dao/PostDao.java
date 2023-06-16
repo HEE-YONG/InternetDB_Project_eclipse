@@ -41,6 +41,23 @@ public class PostDao {
 
         return n == 1;
     }
+    
+    public boolean deletePost(int idx) {
+        String query = "delete from Post where post_idx = ?";
+        int n = 0;
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, idx);
+
+            n = preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("Error :" + e.getMessage());
+        }
+
+        return n == 1;
+    }
 
     public List<FeedRes> filterPost(String animal, String region) {
         String query = "select * from Post join User ON Post.user_idx = User.user_idx";
