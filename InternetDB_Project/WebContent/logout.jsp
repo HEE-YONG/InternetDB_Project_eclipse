@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +7,8 @@
 </head>
 <body>
 <%
-session.invalidate(); // ¼¼¼Ç ¹«È¿È­
-response.sendRedirect("index.jsp"); // ·Î±×¾Æ¿ô ÈÄ ¸ÞÀÎ ÆäÀÌÁö·Î ¸®µð·º¼Ç
+session.invalidate(); // ì„¸ì…˜ ë¬´íš¨í™”
+response.sendRedirect("index.jsp"); // ë¡œê·¸ì•„ì›ƒ í›„ ë©”ì¸ íŽ˜ì´ì§€ë¡œ ë¦¬ë””ë ‰ì…˜
 %>
 </body>
 </html>
