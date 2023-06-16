@@ -27,7 +27,7 @@ public class PostDao {
 
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, 3);
+            preparedStatement.setInt(1, post.getUser_idx());
             preparedStatement.setString(2, post.getPost_title());
             preparedStatement.setString(3, post.getPost_picture());
             preparedStatement.setString(4, post.getPost_location());
@@ -86,7 +86,9 @@ public class PostDao {
             } else if (!region.equals("") && !region.equals("whole region")) {
             	query += " where post_location = ?";
             }
-
+            
+            query += " order by Post.post_idx desc";
+            
             preparedStatement = connection.prepareStatement(query);
 
             if (!animal.equals("") && !animal.equals("all") && !region.equals("") && !region.equals("whole region")) {
