@@ -109,10 +109,11 @@ var modified_content = document.querySelector(".modified-content");
 
 modifybutton.addEventListener('click', () => {
 	  modifybutton.style.display = "none";
-	  completebutton.style.display = "block";
+	  completebutton.style.display = "inline";
 	  modifyForm.style.display = "block";
 	  modal_post_content.style.display = "none";
 	  modified_content.value = modal_post_content.innerText;
+	  modified_content.focus();
 	});
 
 
