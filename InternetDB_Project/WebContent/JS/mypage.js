@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var closeButton = document.querySelector(".btn-close");
     closeButton.addEventListener("click", function () {
         modalWrapper.classList.remove("open");
+        document.querySelector(".comment").innerHTML="";
         body.classList.remove("blur-it");
         nav.classList.remove("blur-it");
         profile.classList.remove("blur-it");
@@ -57,7 +58,28 @@ function viewModalContent(event) {
 	  modalAnimal.textContent = post_animal;
 	  modalContent.textContent = post_content;
 	 
-	  console.log(post_picture);
+	  var commentList = document.querySelectorAll(".comment" + post_idx);
+	  var postComment = document.querySelector(".comment");
+	  
+	  for (comment of commentList) {
+		  var newComment = document.createElement("div");
+		  var newComment_userNickname = document.createElement("div");
+		  var newComment_content = document.createElement("div");
+		  newComment.className = "comment_item";
+		  newComment_userNickname.className = "comment_item_user";
+		  newComment_content.className = "comment_item_content";
+		  
+		  newComment_userNickname.textContent = comment.querySelector(".comment_user_nickname").value;
+		  newComment_content.textContent = comment.querySelector(".comment_content").value;
+		  
+		  newComment.appendChild(newComment_content);
+		  newComment.appendChild(newComment_userNickname);
+		  
+		  postComment.appendChild(newComment);
+	  }
+	  
+	  var modalCommentInputPostIdx = modalWrapper.querySelector(".comment_post_idx");
+	  modalCommentInputPostIdx.value = post_idx;
 }
 
 function openmodal(e) {

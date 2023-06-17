@@ -2,10 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.internetdb.wepapp.Dto.FeedRes"%>
 <%@ page import="com.internetdb.wepapp.Dto.UserRes"%>
+<%@ page import="com.internetdb.wepapp.Dto.CommentRes"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.internetdb.wepapp.Servlet.PostServlet"%>
 <%@ page import="com.internetdb.wepapp.Dao.PostDao"%>
 <%@ page import="com.internetdb.wepapp.Dao.UserDao"%>
+<%@ page import="com.internetdb.wepapp.Dao.CommentDao"%>
 <!DOCTYPE html>
 <html data-wf-domain="newport-template.webflow.io"
 	data-wf-page="5e4b16080b25ed0d294d526a"
@@ -75,6 +77,10 @@
 
 .profile-intro {
 	margin-top: 5px;
+}
+
+.modal {
+	height: 580px;
 }
 
 </style>
@@ -164,6 +170,21 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="comment-section">
+	  	<%
+	  		CommentDao commentDao = new CommentDao();
+	  		List<CommentRes> commentList = commentDao.findAllComment();
+	  		
+	  		for (CommentRes comment : commentList) {
+	  	%>
+	  	<div class="comment<%= comment.getPost_idx()%>" style="display:none">
+	  		<input type="hidden" value="<%= comment.getComment_idx() %>">
+	  		<input type="hidden" class="comment_user_nickname" value="<%= comment.getUser_nickname()%>">
+	  		<input type="hidden" class="comment_content" value="<%= comment.getComment()%>">
+	  	</div>
+	  	<%} %>
+    </div>
 
 
 	<!-- Feed Post Modal -->
@@ -188,19 +209,32 @@
                     	<input type="hidden" id="post_idx_content" name="post_idx" />
                     	<input class="modified-content" type="text" name="modified-content">
                     </form>
-                    <hr>
-                    <div class="modal_comment_user_idx">Comment User Name</div>
-                    <div class="modal_comment_content">Comment Content</div>
-                </div>
-                <div>
-                <form id="deleteForm" action="post-servlet" method="post">
-                	<input type="hidden" name="action" value="deletePost">
-                	<input type="hidden" id="post_idx_input" name="post_idx" />
-                	<input type="submit" value="Delete" />
-            	</form>
-            	<input class="modifybutton" type="button" name="modify" value="Modify">
-            	<input class="completebutton" type="button" name="modify" value="Complete" style="display:none" onclick="document.getElementById('modifyForm').submit();">
-            	</div>
+                    <div class="comment">
+                    </div>
+                    <%
+                    	if (user_idx != null) { 
+                    %>
+                    <div class="comment_reg">
+                    	<form action="comment-servlet" method="post" onsubmit="return checkComment()">
+                    		<input type="hidden" name="action" value="registerComment">
+                    		<input type="hidden" name="user_idx" value="<%= user_idx %>">
+                    		<input class="comment_post_idx" type="hidden" name="post_idx" value="">
+                    		<input id="input_comment" type="text" name="comment" size="30">
+                    		<input id="submit_btn" type="submit" value="✔️">
+                    	</form>
+                    </div>
+                    <% } else {}%>
+                    
+                    <div class="modal_btn_wrap">
+		                <form id="deleteForm" action="post-servlet" method="post">
+		                	<input type="hidden" name="action" value="deletePost">
+		                	<input type="hidden" id="post_idx_input" name="post_idx" />
+		                	<input class="w-btn-outline w-btn-indigo-outline" type="submit" value="Delete" />
+		            	</form>
+		            	<input class="modifybutton w-btn-outline w-btn-gray-outline" type="button" name="modify" value="Modify">
+		            	<input class="completebutton" type="button" name="modify" value="Complete" style="display:none" onclick="document.getElementById('modifyForm').submit();">
+	            	</div>
+                </div>            
             </div>
         </div>
     </div>

@@ -113,6 +113,7 @@ function viewModalContent(event) {
 		  
 		  postComment.appendChild(newComment);
 	  }
+	  
 	  var modalCommentInputPostIdx = modalWrapper.querySelector(".comment_post_idx");
 	  modalCommentInputPostIdx.value = post_idx;
 }

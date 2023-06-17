@@ -209,6 +209,19 @@ input[id*="answer"]:not(checked) + label span {
 	font-size: 17px;
 }
 
+#deleteForm {
+	display: inline;
+}
+
+.modal_btn_wrap {
+	text-align: end;
+	margin-top: 10px;
+}
+
+.modal_btn_wrap * {
+	padding: 10px;	
+}
+
 /************************************   new-post-modal   ******************************************/
 
 .plus_badge {
