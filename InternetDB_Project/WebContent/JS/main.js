@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var closeButton = document.querySelector(".btn-close");
     closeButton.addEventListener("click", function () {
         modalWrapper.classList.remove("open");
+        document.querySelector(".comment").innerHTML="";
         body.classList.remove("blur-it");
         nav.classList.remove("blur-it");
         badge.classList.remove("blur-it");
@@ -92,6 +93,28 @@ function viewModalContent(event) {
 	  modalLocation.textContent = post_location;
 	  modalAnimal.textContent = post_animal;
 	  modalContent.textContent = post_content;
+	  
+	  var commentList = document.querySelectorAll(".comment" + post_idx);
+	  var postComment = document.querySelector(".comment");
+	  
+	  for (comment of commentList) {
+		  var newComment = document.createElement("div");
+		  var newComment_userNickname = document.createElement("div");
+		  var newComment_content = document.createElement("div");
+		  newComment.className = "comment_item";
+		  newComment_userNickname.className = "comment_item_user";
+		  newComment_content.className = "comment_item_content";
+		  
+		  newComment_userNickname.textContent = comment.querySelector(".comment_user_nickname").value;
+		  newComment_content.textContent = comment.querySelector(".comment_content").value;
+		  
+		  newComment.appendChild(newComment_content);
+		  newComment.appendChild(newComment_userNickname);
+		  
+		  postComment.appendChild(newComment);
+	  }
+	  var modalCommentInputPostIdx = modalWrapper.querySelector(".comment_post_idx");
+	  modalCommentInputPostIdx.value = post_idx;
 }
 
 
@@ -121,6 +144,17 @@ function newPostModalUp() {
     return false;
 }
 
+function checkComment(){
+	var input_comment = document.getElementById("input_comment").value;
+	
+	if (input_comment.trim() === "") {
+		alert("댓글을 입력해주세요.");
+		return false;
+	} else {
+		return true;
+	}
+}
+
 /***********************************   Reset & New Post   **************************************/
 
 function loadFile(input) {
@@ -128,7 +162,10 @@ function loadFile(input) {
     let newImage = document.createElement("img");
 
     newImage.src = URL.createObjectURL(file);
-
+    newImage.style.width = "500px";
+    newImage.style.height = "500px";
+    
+    
     let container = document.querySelector(".new-image");
     container.appendChild(newImage);
     container.style.display = "block";

@@ -10,7 +10,8 @@ public class FeedRes {
     private String animal;
     private String post_content;
 
-    public FeedRes(int post_idx, int user_idx, String user_nickname, String post_title, String post_picture, String post_location, String animal, String post_content) {
+   
+	public FeedRes(int post_idx, int user_idx, String user_nickname, String post_title, String post_picture, String post_location, String animal, String post_content) {
         this.post_idx = post_idx;
         this.user_idx = user_idx;
         this.user_nickname = user_nickname;
@@ -36,8 +37,6 @@ public class FeedRes {
     public void setUser_idx(int user_idx) {
         this.user_idx = user_idx;
     }
-
-
 
     public String getUser_nickname() {
         return user_nickname;
