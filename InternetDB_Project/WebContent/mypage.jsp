@@ -217,7 +217,8 @@
                     <div class="comment_reg">
                     	<form action="comment-servlet" method="post" onsubmit="return checkComment()">
                     		<input type="hidden" name="action" value="registerComment">
-                    		<input type="hidden" name="user_idx" value="<%= user_idx %>">
+                    		<input type="hidden" name="page" value="mypage">
+                    		<input type="hidden" name="user_idx" value="<%= idx %>">
                     		<input class="comment_post_idx" type="hidden" name="post_idx" value="">
                     		<input id="input_comment" type="text" name="comment" size="30">
                     		<input id="submit_btn" type="submit" value="✔️">
