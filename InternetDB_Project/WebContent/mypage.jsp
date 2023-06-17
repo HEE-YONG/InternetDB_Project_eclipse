@@ -207,7 +207,7 @@
                     <form id="modifyForm" action="post-servlet" method="post" style="display:none">
                     	<input type="hidden" name="action" value="modifyPost">
                     	<input type="hidden" id="post_idx_content" name="post_idx" />
-                    	<input class="modified-content" type="text" name="modified-content">
+                    	<textarea class="modified-content" name="modified-content" style="width: 290px; height: 95px; overflow-wrap: break-word;"></textarea>
                     </form>
                     <div class="comment">
                     </div>
@@ -217,9 +217,9 @@
                     <div class="comment_reg">
                     	<form action="comment-servlet" method="post" onsubmit="return checkComment()">
                     		<input type="hidden" name="action" value="registerComment">
-                    		<input type="hidden" name="user_idx" value="<%= user_idx %>">
+                    		<input type="hidden" name="user_idx" value="<%= idx %>">
                     		<input class="comment_post_idx" type="hidden" name="post_idx" value="">
-                    		<input id="input_comment" type="text" name="comment" size="30">
+                    		<input id="input_comment" type="text" name="comment" size="30" >
                     		<input id="submit_btn" type="submit" value="✔️">
                     	</form>
                     </div>
@@ -229,10 +229,10 @@
 		                <form id="deleteForm" action="post-servlet" method="post">
 		                	<input type="hidden" name="action" value="deletePost">
 		                	<input type="hidden" id="post_idx_input" name="post_idx" />
-		                	<input class="w-btn-outline w-btn-indigo-outline" type="submit" value="Delete" />
+		                	<input class="w-btn-outline w-btn-indigo-outline" type="submit" value="Delete" style="display:inline"/>
 		            	</form>
 		            	<input class="modifybutton w-btn-outline w-btn-gray-outline" type="button" name="modify" value="Modify">
-		            	<input class="completebutton" type="button" name="modify" value="Complete" style="display:none" onclick="document.getElementById('modifyForm').submit();">
+		            	<input class="completebutton w-btn-outline w-btn-gray-outline" type="button" name="modify" value="Complete" style="display:none" onclick="document.getElementById('modifyForm').submit();">
 	            	</div>
                 </div>            
             </div>
