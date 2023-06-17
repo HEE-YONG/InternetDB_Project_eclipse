@@ -34,6 +34,7 @@ public class CommentServlet extends HttpServlet {
 		int user_idx = Integer.valueOf(request.getParameter("user_idx"));
 		int post_idx = Integer.valueOf(request.getParameter("post_idx"));
 		String comment = request.getParameter("comment");
+		String page = request.getParameter("page");
 		
 		CommentReq commentReq = new CommentReq(user_idx, post_idx, comment);
 		
@@ -45,6 +46,10 @@ public class CommentServlet extends HttpServlet {
 			System.out.println("Insert Comment failed");
 		}
 		
-		response.sendRedirect("index.jsp");
+		if (page.equals("index")) {
+			response.sendRedirect("index.jsp");
+		} else {
+			response.sendRedirect("mypage.jsp");
+		}
 	}
 }
