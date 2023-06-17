@@ -179,10 +179,6 @@ input[id*="answer"]:not(checked) + label span {
 	height: 100px;
 	overflow: auto;
 }
-.modified-content{
-	overflow: auto;
-}
-
 
 .comment {
 	height: 200px;
