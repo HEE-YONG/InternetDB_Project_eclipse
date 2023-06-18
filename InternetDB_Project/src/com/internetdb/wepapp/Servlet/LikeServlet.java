@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.internetdb.wepapp.Dao.LikeDao;
-import com.internetdb.wepapp.Dao.LikeUpdateDao;
 import com.internetdb.wepapp.Dto.Like;
 import com.internetdb.wepapp.Dto.PostLoginReq;
 import com.internetdb.wepapp.Dto.PostLoginRes;
@@ -58,10 +57,10 @@ public class LikeServlet {
     	if(request.getParameter("like_idx") != null) {
     		likeIdx = (String) request.getParameter("like_idx");
     	}
-    	LikeDao like = new LikeDao();
-    	LikeUpdateDao update = new LikeUpdateDao();
+    	Like addNewLike = new Like(post_idx, user_idx);
+    	LikeDao likeDao = new LikeDao();
     	
-    	int result = update.updateNewLike(like_idx, post_idx, user_idx);
+    	int result = addNewLike;
     	if (result == 1) {
     		result = like.addNewLike(like_idx);
     		if (result == 1) { // 해당 게시글 추천 완료

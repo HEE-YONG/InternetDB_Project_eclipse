@@ -10,11 +10,8 @@ import com.internetdb.wepapp.DBConnection;
 import com.internetdb.wepapp.Dto.FeedRes;
 import com.internetdb.wepapp.Dto.PostLoginReq;
 import com.internetdb.wepapp.Dto.PostLoginRes;
-<<<<<<< HEAD
 import com.internetdb.wepapp.Dto.User;
-=======
 import com.internetdb.wepapp.Dto.UserRes;
->>>>>>> branch 'main' of https://github.com/IndigoJSilver/InternetDB_Project.git
 
 public class UserDao {
 	private Connection connection;
