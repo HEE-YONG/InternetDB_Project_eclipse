@@ -31,15 +31,10 @@
 			<div class="bt_wrap">
 				<a href="#" class="on" onclick="document.getElementById('login-form').submit();">sign in</a>
           		<a href="signUp.html">sign up</a>
-				<a href="#" onclick="resetForm()">reset</a>
+				<a href="index.jsp">cancel</a>
 			</div>
 		</div>
 	</div>
-	</form>
-	<script>
-  function resetForm() {
-    document.getElementById("login-form").reset();
-  }
-</script>
+</form>
 </body>
 </html>

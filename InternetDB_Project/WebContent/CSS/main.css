@@ -1,3 +1,9 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
 /****************************************   filter   **********************************************/
 
 .radioStyle[type="radio"] {
@@ -92,7 +98,7 @@ input[id*="answer"]:not(checked) + label span {
     flex-direction: column;
     margin: 50% 0 0 -400px;
     position: fixed;
-    top: 50%;
+    top: 45%;
     left: 50%;
     background: #fff;
     opacity: 0;
@@ -132,6 +138,7 @@ input[id*="answer"]:not(checked) + label span {
 
 .content {
 	display: flex;
+	height: 570px;
 }
 
 .modal-img > img {
@@ -144,15 +151,17 @@ input[id*="answer"]:not(checked) + label span {
     width: 470px;
     height: 470px;
     margin-right: 0px;
-    flex-grow: 0;
 }
 
 .modal-content {
-	margin: 20px;
-	flex-grow: 1;
+	width: 330px;
+	padding: 20px;
 }
 
-.modal-content * {
+.modal_post_title,
+.modal_user_nickname,
+.modal_post_location,
+.modal_post_animal{
 	padding-bottom: 10px; 
 }
 
@@ -167,9 +176,51 @@ input[id*="answer"]:not(checked) + label span {
 
 .modal_post_content {
 	padding-bottom: 0px;
+	height: 100px;
+	overflow: auto;
 }
 
+.comment {
+	height: 200px;
+	border: 1px solid black;
+	overflow: auto;
+}
 
+.comment_reg {
+	height: 40px;
+}
+
+#submit_btn{
+	width: 30px;
+	height: 30px;
+	margin: 5px;
+}
+
+.comment_item {
+	padding: 10px;
+}
+
+.comment_item_user {
+	text-align: end;
+	font-size: 12px;
+}
+
+.comment_item_content {
+	font-size: 17px;
+}
+
+#deleteForm {
+	display: inline;
+}
+
+.modal_btn_wrap {
+	text-align: end;
+	margin-top: 10px;
+}
+
+.modal_btn_wrap * {
+	padding: 10px;	
+}
 
 /************************************   new-post-modal   ******************************************/
 

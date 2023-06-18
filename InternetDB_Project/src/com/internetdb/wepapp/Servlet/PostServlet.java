@@ -33,6 +33,12 @@ public class PostServlet extends HttpServlet {
             case "filter":
                 filter(request, response);
                 break;
+            case "deletePost":
+                deletePost(request, response);
+                break;
+            case "modifyPost":
+                modifyPost(request, response);
+                break;
             default:
                 break;
         }
@@ -45,8 +51,9 @@ public class PostServlet extends HttpServlet {
         String location = request.getParameter("post_location");
         String animal = request.getParameter("animal");
         String content = request.getParameter("post_content");
+        String user_idx = request.getParameter("user_idx");
         
-        Post post = new Post(3, title, picture, location, animal, content);
+        Post post = new Post(Integer.valueOf(user_idx), title, picture, location, animal, content);
 
         PostDao postDao = new PostDao();
         if (postDao.addNewPost(post)) {
@@ -57,15 +64,47 @@ public class PostServlet extends HttpServlet {
 
         response.sendRedirect("index.jsp");
     }
+	
+	private void modifyPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int post_idx = Integer.parseInt(request.getParameter("post_idx"));
+		String modifiedContent = request.getParameter("modified-content");
+		
+        PostDao postDao = new PostDao();
+        postDao.modifyPost(post_idx, modifiedContent);
+
+        response.sendRedirect("mypage.jsp");
+    }
+	
+	private void deletePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int post_idx = Integer.parseInt(request.getParameter("post_idx"));
+
+        PostDao postDao = new PostDao();
+        postDao.deletePost(post_idx);
+
+        response.sendRedirect("mypage.jsp");
+    }
 
     private void filter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String animal = request.getParameter("animal");
         String region = request.getParameter("region");
+        String user_idx = request.getParameter("user_idx");
         
         PostDao postDao = new PostDao();
-        List<FeedRes> filteredPosts = postDao.filterPost(animal, region);
+        List<FeedRes> filteredPosts;
+        
+        if (user_idx.equals("null")) {
+        	filteredPosts = postDao.filterPost(animal, "");
+        } else {
+        	String user_region = postDao.findUserRegion(Integer.valueOf(user_idx));
+        	if (region.equals("whole region")) {
+        		filteredPosts = postDao.filterPost(animal, region);
+        	} else {
+        		filteredPosts = postDao.filterPost(animal, user_region);
+        	}
+        }
 
         request.setAttribute("filteredPosts", filteredPosts);
+        request.setAttribute("filterCheck", "ok");
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);

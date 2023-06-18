@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
         
         if (loginResult != null) {
             session.setAttribute("user_email", user_email);
-            session.setAttribute("user_idx", loginResult.getUser_idx());
+            session.setAttribute("user_idx", String.valueOf(loginResult.getUser_idx()));
             session.setAttribute("user_nickname", loginResult.getUser_nickname());
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");

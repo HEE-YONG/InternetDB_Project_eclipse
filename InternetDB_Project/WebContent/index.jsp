@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.internetdb.wepapp.Dto.FeedRes" %>
+<%@ page import="com.internetdb.wepapp.Dto.CommentRes" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.internetdb.wepapp.Servlet.PostServlet" %>
 <%@ page import="com.internetdb.wepapp.Dao.PostDao" %>
+<%@ page import="com.internetdb.wepapp.Dao.CommentDao" %>
 
 <!DOCTYPE html>
 <html data-wf-domain="newport-template.webflow.io" data-wf-page="5e4b16080b25ed0d294d526a"
@@ -10,7 +12,7 @@
       class="w-mod-js wf-montserrat-i2-active wf-montserrat-i4-active wf-montserrat-i7-active wf-montserrat-i8-active wf-montserrat-i6-active wf-montserrat-i9-active wf-montserrat-i5-active wf-montserrat-i3-active wf-montserrat-i1-active wf-roboto-n4-active wf-roboto-n3-active wf-roboto-n5-active wf-montserrat-n5-active wf-montserrat-n6-active wf-montserrat-n9-active wf-montserrat-n1-active wf-montserrat-n8-active wf-montserrat-n7-active wf-montserrat-n3-active wf-montserrat-n4-active wf-montserrat-n2-active wf-active">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Example Page - Webflow Template</title>
+    <title>PETSTAGRAM</title>
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="Webflow" name="generator">
     <link href="./Example Page - Webflow Template_files/newport-template.webflow.00281f806.css" rel="stylesheet"
@@ -40,21 +42,31 @@
         </a>
         <nav role="navigation" class="navigation-menu w-nav-menu">
             <%
-            String user_idx = (String) session.getAttribute("user_nickname");
+            String user_idx = (String) session.getAttribute("user_idx");
             if (user_idx != null) {
             %>
-            <a id="logout-nav" href="logout.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
+            <a id="logout-nav" href="logout.jsp" aria-current="page" class="navigation-link w-nav-link"
                style="max-width: 940px;">Logout</a>
             <%
             } else {
             %>
-            <a id="login-nav" href="login.jsp" aria-current="page" class="navigation-link w-nav-link w--current"
+            <a id="login-nav" href="login.jsp" aria-current="page" class="navigation-link w-nav-link"
                style="max-width: 940px;">Login</a>
             <%
             }
             %>
-            <a href="index.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">Feed</a>
+            <a href="index.jsp" class="navigation-link w-nav-link" style="max-width: 940px; color: #333">Feed</a>
+            <%
+            if (user_idx != null) {
+            %>
             <a href="mypage.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">My Page</a>
+            <%
+            } else {
+            %>
+            <a href="login.jsp" class="navigation-link w-nav-link" style="max-width: 940px;">My Page</a>
+            <%
+            }
+            %>
         </nav>
         <div class="hamburger-button w-nav-button" style="-webkit-user-select: text;" aria-label="menu" role="button"
              tabindex="0" aria-controls="w-nav-overlay-0" aria-haspopup="menu" aria-expanded="false">
@@ -115,7 +127,13 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <%	if (user_idx != null) { %> 
                     <div>
+                    <%	} else {%>
+                    <div style="display:none">
+                    <%} %>
+                    	<input type="hidden" name="user_idx" value="<%= user_idx %>">
                         <input type="checkbox" id="answer02" />
                         <label for="answer02">Region <span>▽</span></label>
                         <div style="display: flex; flex-direction: row">
@@ -156,8 +174,9 @@
                 <div role="list" class="w-dyn-items w-row">
                     <%
                         List<FeedRes> filteredPosts = (List<FeedRes>) request.getAttribute("filteredPosts");
-
-                        if (filteredPosts == null || filteredPosts.isEmpty()) {
+						String filterCheck = (String) request.getAttribute("filterCheck");
+                                		
+                        if (filteredPosts == null || filteredPosts.isEmpty() && filterCheck == null) {
                             PostDao postDao = new PostDao();
                             filteredPosts = postDao.filterPost("", "");
                         }
@@ -193,6 +212,20 @@
             </div>
         </div>
     </div>
+    <div class="comment-section">
+	  	<%
+	  		CommentDao commentDao = new CommentDao();
+	  		List<CommentRes> commentList = commentDao.findAllComment();
+	  		
+	  		for (CommentRes comment : commentList) {
+	  	%>
+	  	<div class="comment<%= comment.getPost_idx()%>" style="display:none">
+	  		<input type="hidden" value="<%= comment.getComment_idx() %>">
+	  		<input type="hidden" class="comment_user_nickname" value="<%= comment.getUser_nickname()%>">
+	  		<input type="hidden" class="comment_content" value="<%= comment.getComment()%>">
+	  	</div>
+	  	<%} %>
+    </div>
     <div class="footer wf-section">
         <div class="w-container">
             <div>
@@ -227,9 +260,22 @@
                     <div class="modal_post_animal">animal</div>
                     <hr>
                     <div class="modal_post_content">Post Content</div>
-                    <hr>
-                    <div class="modal_comment_user_idx">Comment User Name</div>
-                    <div class="modal_comment_content">Comment Content</div>
+                    <div class="comment">
+                    </div>
+                    <%
+                    	if (user_idx != null) { 
+                    %>
+                    <div class="comment_reg">
+                    	<form action="comment-servlet" method="post" onsubmit="return checkComment()">
+                    		<input type="hidden" name="action" value="registerComment">
+                    		<input type="hidden" name="page" value="index">
+                    		<input type="hidden" name="user_idx" value="<%= user_idx %>">
+                    		<input class="comment_post_idx" type="hidden" name="post_idx" value="">
+                    		<input id="input_comment" type="text" name="comment" size="30">
+                    		<input id="submit_btn" type="submit" value="✔️">
+                    	</form>
+                    </div>
+                    <% } else {}%>
                 </div>
 				<div class="w3-border w3-center w3-padding">
 				<c:if test="${ id == null }">
@@ -249,9 +295,12 @@
     </div>
 
     <!-- Add New Post Badge -->
+    <%if (user_idx != null) {%>
     <a class="plus_badge post-trigger" style="cursor: pointer;">
         <img src="images/plus_icon.png"/>
     </a>
+    <%} else {}%>
+   
 
     <!-- Add New Post Modal -->
     <div class="post-modal-wrapper">
@@ -261,6 +310,7 @@
             </div>
             <form class="new-post-form" action="post-servlet" method="post">
                 <input type="hidden" name="action" value="addNewPost">
+                <input type="hidden" name="user_idx" value="<%= user_idx %>">
                 <div class="new-post-content">
                     <div class="new-post-content-left">
                         <div class="new-image-input">
