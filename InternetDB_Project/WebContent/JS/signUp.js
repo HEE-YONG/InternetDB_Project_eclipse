@@ -4,26 +4,38 @@ function form_check() {
   let pwd = document.getElementById("pwd");
   let repwd = document.getElementById("repwd");
   let u_nickname = document.getElementById("u_nickname");
-  
+  let newImage = document.getElementById("newImage");
+  let u_location = document.getElementById("u_location");
   
   function red_err_txt() { 
     err_txt.style.color = "red";
   }
-
+  
+ 
   if (newImage.value == "") {
     var err_txt = document.querySelector(".err_image");
     red_err_txt();
     err_txt.textContent = "* 이미지를 넣어 주세요.";
-    u_image.focus();
     return false;
   }
-  if (u_introduce.value == "") {
-    var err_txt = document.querySelector(".err_introduce");
+  
+  if (u_nickname.value == "") {
+    var err_txt = document.querySelector(".err_nickname");
     red_err_txt();
-    err_txt.textContent = "* 한줄 소개를 작성해 주세요.";
-    u_introduce.focus();
+    err_txt.textContent = "* 닉네임을 입력 하세요.";
+    u_nickname.focus();
     return false;
   }
+	  
+  if(u_location.value == "") {
+	  var err_txt = document.querySelector(".err_location");
+	  red_err_txt;
+	  err_txt.txtContent =  "* 지역을 입력 하세요";
+	  u_location.focus();
+	  return false;
+  }
+  
+  
   if (u_id.value == "") {
     var err_txt = document.querySelector(".err_id");
     red_err_txt();
@@ -31,6 +43,7 @@ function form_check() {
     u_id.focus();
     return false;
   }
+  
   const uid_len = u_id.value.length;
   if (uid_len < 4 || uid_len > 12) {
     var err_txt = document.querySelector(".err_id");
@@ -39,6 +52,7 @@ function form_check() {
     u_id.focus();
     return false;
   }
+  
   if (pwd.value == "") {
     var err_txt = document.querySelector(".err_pwd");
     red_err_txt();
@@ -46,6 +60,7 @@ function form_check() {
     pwd.focus();
     return false;
   }
+  
   var pwd_len = pwd.value.length;
   if (pwd_len < 4 || pwd_len > 12) {
     var err_txt = document.querySelector(".err_pwd");
@@ -54,6 +69,7 @@ function form_check() {
     pwd.focus();
     return false;
   }
+  
   if (pwd.value != repwd.value) {
     var err_txt = document.querySelector(".err_repwd");
     red_err_txt();
@@ -61,13 +77,15 @@ function form_check() {
     repwd.focus();
     return false;
   }
-  if (u_nickname.value == "") {
-    var err_txt = document.querySelector(".err_nickname");
+  
+  if (u_introduce.value == "") {
+    var err_txt = document.querySelector(".err_introduce");
     red_err_txt();
-    err_txt.textContent = "* 닉네임을 입력 하세요.";
-    u_nickname.focus();
+    err_txt.textContent = "* 한줄 소개를 작성해 주세요.";
+    u_introduce.focus();
     return false;
   }
+  
 }
 
 function loadFile(input) {

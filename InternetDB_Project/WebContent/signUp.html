@@ -21,11 +21,11 @@ form span {
 		<div class=board_signUp_wrap>
 			<div class="board_signUp">
 				<div class="img_wrap">
-					<span class=".err_image">* 자신을 나타낼 이미지를 넣어 주세요.</span>
+					<span class="err_image">* 자신을 나타낼 이미지를 넣어 주세요.</span>
 					<div class="new-image-input">
 						<label style="cursor:pointer">
 		                    <h3>Click Here!!</h3>
-		                    <input type="file" name="post_picture" accept="image/*" style="display: none" onchange="loadFile(this)">
+		                    <input id="newImage" type="file" name="post_picture" accept="image/*" style="display: none" onchange="loadFile(this)">
 	                    </label>
 	                </div>
 	                <div class="new-image"></div>
@@ -38,6 +38,7 @@ form span {
 					</dl>
 				</div>
 				<div class="location_wrap">
+					<span class="err_location">* 1~15글자까지만 입력 가능합니다.</span>
 					<dl>
 						<dt>Location :</dt>
 						<dd><input id="u_location" type="text" name="user_location"></dd>
