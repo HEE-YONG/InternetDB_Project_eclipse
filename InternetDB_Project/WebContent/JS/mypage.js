@@ -127,3 +127,10 @@ for (var i = 0; i < imageElements.length; i++) {
     imageName = imageName.trim();
     imageElements[i].src = imagePath + imageName;
 }
+/****************************************   PROFILE  **********************************************/
+var profileimagePath = "./images/";
+var profileimageElement = document.querySelector(".profile-image");
+
+var profileimageName = profileimageElement.getAttribute("src");
+profileimageName = profileimageName.trim();
+profileimageElement.src = profileimagePath + imageName;
