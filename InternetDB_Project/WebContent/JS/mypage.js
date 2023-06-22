@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var body = document.querySelector(".section");
     var nav = document.querySelector(".navigation-bar");
     var profile = document.querySelector(".profile");
+    var footer = document.querySelector(".footer");
 
 
 
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.remove("blur-it");
         nav.classList.remove("blur-it");
         profile.classList.remove("blur-it");
+        footer.classList.remove("blur-it");
     });
 
 });
@@ -87,12 +89,14 @@ function openmodal(e) {
     var body = document.querySelector(".section");
     var nav = document.querySelector(".navigation-bar");
     var profile = document.querySelector(".profile");
+    var footer = document.querySelector(".footer");
     
 
     modalWrapper.classList.toggle("open");
     body.classList.toggle("blur-it");
     nav.classList.toggle("blur-it");
     profile.classList.toggle("blur-it");
+    footer.classList.toggle("blur-it");
     return false;
 }
 
@@ -133,4 +137,4 @@ var profileimageElement = document.querySelector(".profile-image");
 
 var profileimageName = profileimageElement.getAttribute("src");
 profileimageName = profileimageName.trim();
-profileimageElement.src = profileimagePath + imageName;
+profileimageElement.src = profileimagePath + profileimageName;

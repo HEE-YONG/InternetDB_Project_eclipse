@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var body = document.querySelector(".section");
     var nav = document.querySelector(".navigation-bar");
     var badge = document.querySelector(".plus_badge");
+    var footer = document.querySelector(".footer");
 
 
     // filter
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.remove("blur-it");
         nav.classList.remove("blur-it");
         badge.classList.remove("blur-it");
+        footer.classList.remove("blur-it");
     });
 
 
@@ -56,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         postModalWrapper.classList.remove("open");
         body.classList.remove("blur-it");
         nav.classList.remove("blur-it");
+        footer.classList.remove("blur-it");
         badge.classList.remove("blur-it");
         
     });
@@ -138,10 +141,12 @@ function openmodal(e) {
     var body = document.querySelector(".section");
     var nav = document.querySelector(".navigation-bar");
     var badge = document.querySelector(".plus_badge");
+    var footer = document.querySelector(".footer");
 
     modalWrapper.classList.toggle("open");
     body.classList.toggle("blur-it");
     nav.classList.toggle("blur-it");
+    footer.classList.toggle("blur-it");
     badge.classList.toggle("blur-it");
     return false;
 }
@@ -151,11 +156,15 @@ function newPostModalUp() {
     var body = document.querySelector(".section");
     var nav = document.querySelector(".navigation-bar");
     var badge = document.querySelector(".plus_badge");
+    var footer = document.querySelector(".footer");
 
     postModalWrapper.classList.toggle("open");
     body.classList.toggle("blur-it");
     nav.classList.toggle("blur-it");
+    footer.classList.toggle("blur-it");
     badge.classList.toggle("blur-it");
+    
+    
     return false;
 }
 
