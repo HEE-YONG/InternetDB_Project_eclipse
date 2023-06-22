@@ -133,4 +133,4 @@ var profileimageElement = document.querySelector(".profile-image");
 
 var profileimageName = profileimageElement.getAttribute("src");
 profileimageName = profileimageName.trim();
-profileimageElement.src = profileimagePath + imageName;
+profileimageElement.src = profileimagePath + profileimageName;
