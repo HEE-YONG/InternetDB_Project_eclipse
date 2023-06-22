@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     var closeButton = document.querySelector(".btn-close");
     closeButton.addEventListener("click", function () {
+    	$("#post_idx_hidden").remove();
         modalWrapper.classList.remove("open");
         document.querySelector(".comment").innerHTML="";
         body.classList.remove("blur-it");
@@ -88,6 +89,27 @@ function viewModalContent(event) {
 	  var modalAnimal = modalWrapper.querySelector(".modal_post_animal");
 	  var modalContent = modalWrapper.querySelector(".modal_post_content");
 	  
+	  var likeCount = document.getElementById("like_count");
+	  var likePost = document.querySelector(".like-section #like" + post_idx);
+	  
+	  if (likePost) {
+		  likeCount.innerText = likePost.value;		  
+	  } else {
+		  var like_new = document.createElement("input");
+		  like_new.type = "hidden";
+		  like_new.value = "0";
+		  like_new.id = "like" + post_idx;
+		  document.querySelector(".like-section").appendChild(like_new);
+		  likeCount.innerText = "0";
+	  }
+	  
+	  var post_idx_hidden = document.createElement("input");
+	  post_idx_hidden.type = "hidden";
+	  post_idx_hidden.value = post_idx;
+	  post_idx_hidden.id = "post_idx_hidden";
+	  
+	  document.body.appendChild(post_idx_hidden);
+	  
 	  modalTitle.textContent = post_title;
 	  modalNickname.textContent = user_nickname;
 	  modalLocation.textContent = post_location;
@@ -117,19 +139,7 @@ function viewModalContent(event) {
 	  var modalCommentInputPostIdx = modalWrapper.querySelector(".comment_post_idx");
 	  modalCommentInputPostIdx.value = post_idx;
 	  
-	  var likeCount = document.getElementById("like_count");
-	  var likePost = document.querySelector(".like-section #like" + post_idx).value;
 	  
-	  console.log(likePost);
-	  
-	  likeCount.innerText = likePost;
-	  
-	  var post_idx_hidden = document.createElement("input");
-	  post_idx_hidden.type = "hidden";
-	  post_idx_hidden.value = post_idx;
-	  post_idx_hidden.id = "post_idx_hidden";
-	  
-	  document.body.appendChild(post_idx_hidden);
 }
 
 

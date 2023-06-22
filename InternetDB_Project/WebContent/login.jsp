@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Sign In</title>
 	<link rel="stylesheet" href="CSS/login.css">
+	<link href="./images/favicon.png" rel="icon" type="image/png" sizes="32x32">
 </head>
 <body>
 <form action="login-servlet" method="post" id="login-form">

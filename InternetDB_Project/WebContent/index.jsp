@@ -34,7 +34,7 @@
             n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
         }(window, document);
     </script>
-    <link href="https://assets.website-files.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="./images/favicon.png" rel="icon" type="image/png" sizes="32x32">
     <link href="https://assets.website-files.com/img/webclip.png" rel="apple-touch-icon">
 </head>
 <body>
@@ -242,18 +242,18 @@
     <div class="footer wf-section">
         <div class="w-container">
             <div>
-                <a href="https://newport-template.webflow.io/#" class="social-icon-link w-inline-block">
-                    <img src="./Example Page - Webflow Template_files/5e4b16080b25ed58884d531f_social-03.svg" width="20" alt="">
+                <a href="https://github.com/HEE-YONG" class="social-icon-link w-inline-block">
+                    <i style="font-size:24px; color:lightgreen" class="fa">&#xf09b;</i>
                 </a>
-                <a href="https://newport-template.webflow.io/#" class="social-icon-link w-inline-block">
-                    <img src="./Example Page - Webflow Template_files/5e4b16080b25edc4554d52d1_social-18.svg" width="20" alt="">
+                <a href="https://github.com/IndigoJSilver" class="social-icon-link w-inline-block">
+                    <i style="font-size:24px; color:pink" class="fa">&#xf09b;</i>
                 </a>
-                <a href="https://newport-template.webflow.io/#" class="social-icon-link w-inline-block">
-                    <img src="./Example Page - Webflow Template_files/5e4b16080b25ed438e4d5316_social-30.svg" width="20" alt="">
+                <a href="https://github.com/dgw0620" class="social-icon-link w-inline-block">
+                    <i style="font-size:24px; color:skyblue" class="fa">&#xf09b;</i>
                 </a>
             </div>
         </div>
-        <div class="footer-text">Powered by Webflow</div>
+        <div class="footer-text">Powered by InternetDB 6 team</div>
     </div>
 
     <!-- Feed Post Modal -->
@@ -291,22 +291,17 @@
                     <% } else {}%>
                 </div>
                 <div class="like_req">
-				<% 
-					if (user_idx != null) {
-				%>
-				<label onclick="like_onclick()" onmouseover="like_hover()" onmouseout="like_out()"> <!-- 로그인 시 click 가능 + 빨간 하트되도록 함수 구현 -->
-				<% } else { %>
-				<label>
-				<% } %>
-					<i id="heart" style="font-size:32px;" class="fa like_count">&#xf08a;</i> <!-- else. 미로그인 시 클릭 불가능. 좋아요 수는 볼 수 있음 -->
-					<span id="like_count" class="like_count" style="font-size: 20px; font-weight: bold; vertical-align: 3.5px; margin-left: 5px;">0</span>
-				</label>
-				</div>
-				<!--  
-				<div class="like_non_req">
-					<i style="font-size:32px" class="fa">&#xf08a;</i>
-					<span class="like_count" style="font-size: 20px; font-weight: bold; vertical-align: 3.5px; margin-left: 5px;">0</span>
-				</div>-->
+					<% 
+						if (user_idx != null) {
+					%>
+					<label onclick="like_onclick()" onmouseover="like_hover()" onmouseout="like_out()"> <!-- 로그인 시 click 가능 + 빨간 하트되도록 함수 구현 -->
+					<% } else { %>
+					<label>
+					<% } %>
+						<i id="heart" style="font-size:32px;" class="fa like_count">&#xf08a;</i> <!-- else. 미로그인 시 클릭 불가능. 좋아요 수는 볼 수 있음 -->
+						<span id="like_count" class="like_count" style="font-size: 20px; font-weight: bold; vertical-align: 3.5px; margin-left: 5px;">0</span>
+					</label>
+				</div>	
             </div>
         </div>
     </div>
@@ -404,19 +399,32 @@
     	    
     		var like_count = document.getElementById("like_count");
     		like_count.innerText++;
+    		
+    		var like = document.getElementById("like" + post_idx);
+    		like.value++;
 			
-    		var formData = new FormData();
-    		formData.append("user_idx", user_idx);
-    		formData.append("post_idx", post_idx);
+    		var data = {
+    				user_idx: user_idx,
+    				post_idx: post_idx
+    		}
     		
     	    var xhr = new XMLHttpRequest();
     		xhr.open("POST", "like-servlet", true);
-		    xhr.onreadystatechange = function() {
+    		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    
+    		var encodedData = Object.keys(data)
+    	    .map(function(key) {
+    	      return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
+    	    })
+    	    .join('&');
+    		
+    		xhr.onreadystatechange = function() {
 		        if (xhr.readyState === 4 && xhr.status === 200) {
 		            console.log(xhr.responseText);
 		        }
 		    };
-			xhr.send(formData);
+		    
+			xhr.send(encodedData);
     	}
     </script>
 </body>

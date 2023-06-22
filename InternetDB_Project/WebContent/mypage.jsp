@@ -2,11 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.internetdb.wepapp.Dto.FeedRes"%>
 <%@ page import="com.internetdb.wepapp.Dto.UserRes"%>
+<%@ page import="com.internetdb.wepapp.Dto.LikeRes"%>
 <%@ page import="com.internetdb.wepapp.Dto.CommentRes"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.internetdb.wepapp.Servlet.PostServlet"%>
 <%@ page import="com.internetdb.wepapp.Dao.PostDao"%>
 <%@ page import="com.internetdb.wepapp.Dao.UserDao"%>
+<%@ page import="com.internetdb.wepapp.Dao.LikeDao"%>
 <%@ page import="com.internetdb.wepapp.Dao.CommentDao"%>
 <!DOCTYPE html>
 <html data-wf-domain="newport-template.webflow.io"
@@ -18,6 +20,7 @@
 <title>PETSTAGRAM</title>
 <meta content="width=device-width, initial-scale=1" name="viewport" />
 <meta content="Webflow" name="generator" />
+<link href="./images/favicon.png" rel="icon" type="image/png" sizes="32x32">
 <link
 	href="./Example Page - Webflow Template_files/newport-template.webflow.00281f806.css"
 	rel="stylesheet" type="text/css" />
@@ -27,6 +30,7 @@
 <script
 	src="./Example Page - Webflow Template_files/webfont.js.ë¤ì´ë¡ë"
 	type="text/javascript"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"
 	href="./Example Page - Webflow Template_files/css" media="all" />
 <link rel="stylesheet" href="CSS/css.css" />
@@ -48,8 +52,6 @@
 						&& (n.className += t + "touch");
 	})(window, document);
 </script>
-<link href="https://assets.website-files.com/img/favicon.ico"
-	rel="shortcut icon" type="image/x-icon" />
 <link href="https://assets.website-files.com/img/webclip.png"
 	rel="apple-touch-icon" />
 </head>
@@ -235,28 +237,101 @@
 		            	<input class="modifybutton w-btn-outline w-btn-gray-outline" type="button" name="modify" value="Modify">
 		            	<input class="completebutton w-btn-outline w-btn-gray-outline" type="button" name="modify" value="Complete" style="display:none" onclick="document.getElementById('modifyForm').submit();">
 	            	</div>
-                </div>            
+                </div>
+                <div class="like_req">
+					<% 
+						if (user_idx != null) {
+					%>
+					<label onclick="like_onclick()" onmouseover="like_hover()" onmouseout="like_out()"> <!-- 로그인 시 click 가능 + 빨간 하트되도록 함수 구현 -->
+					<% } else { %>
+					<label>
+					<% } %>
+						<i id="heart" style="font-size:32px;" class="fa like_count">&#xf08a;</i> <!-- else. 미로그인 시 클릭 불가능. 좋아요 수는 볼 수 있음 -->
+						<span id="like_count" class="like_count" style="font-size: 20px; font-weight: bold; vertical-align: 3.5px; margin-left: 5px;">0</span>
+					</label>
+				</div>	            
             </div>
         </div>
+    </div>
+    
+    <div class="like-section">
+    	<%
+    		LikeDao likeDao = new LikeDao();
+    		List<LikeRes> likeList = likeDao.countLike();
+    		
+    		for(LikeRes like : likeList) {
+    	%>
+    		<input id="like<%= like.getPost_idx() %>" type="hidden" value="<%= like.getLike_count() %>">
+    	<%} %>
     </div>
 	
 	<div class="footer wf-section">
         <div class="w-container">
             <div>
-                <a href="https://newport-template.webflow.io/#" class="social-icon-link w-inline-block">
-                    <img src="./Example Page - Webflow Template_files/5e4b16080b25ed58884d531f_social-03.svg" width="20" alt="">
+                <a href="https://github.com/HEE-YONG" class="social-icon-link w-inline-block">
+                    <i style="font-size:24px; color:lightgreen" class="fa">&#xf09b;</i>
                 </a>
-                <a href="https://newport-template.webflow.io/#" class="social-icon-link w-inline-block">
-                    <img src="./Example Page - Webflow Template_files/5e4b16080b25edc4554d52d1_social-18.svg" width="20" alt="">
+                <a href="https://github.com/IndigoJSilver" class="social-icon-link w-inline-block">
+                    <i style="font-size:24px; color:pink" class="fa">&#xf09b;</i>
                 </a>
-                <a href="https://newport-template.webflow.io/#" class="social-icon-link w-inline-block">
-                    <img src="./Example Page - Webflow Template_files/5e4b16080b25ed438e4d5316_social-30.svg" width="20" alt="">
+                <a href="https://github.com/dgw0620" class="social-icon-link w-inline-block">
+                    <i style="font-size:24px; color:skyblue" class="fa">&#xf09b;</i>
                 </a>
             </div>
         </div>
-        <div class="footer-text">Powered by Webflow</div>
+        <div class="footer-text">Powered by InternetDB 6 team</div>
     </div>
-
+	<script>
+    	function like_hover() {
+    		var heart = document.getElementById("heart");
+    		var like_count = document.getElementById("like_count");
+    		
+    		heart.style.color = "red";
+    		like_count.style.color = "red";
+    	}
+    	
+    	function like_out() {
+    		var heart = document.getElementById("heart");
+    		var like_count = document.getElementById("like_count");
+    		
+    		heart.style.color = "white";
+    		like_count.style.color = "white";	
+    	}
+    	
+    	function like_onclick() {
+    		var post_idx = document.getElementById("post_idx_hidden").value;
+    	    var user_idx = <%= idx %> + "";
+    	    
+    		var like_count = document.getElementById("like_count");
+    		like_count.innerText++;
+    		
+    		var like = document.getElementById("like" + post_idx);
+    		like.value++;
+			
+    		var data = {
+    				user_idx: user_idx,
+    				post_idx: post_idx
+    		}
+    		
+    	    var xhr = new XMLHttpRequest();
+    		xhr.open("POST", "like-servlet", true);
+    		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    
+    		var encodedData = Object.keys(data)
+    	    .map(function(key) {
+    	      return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
+    	    })
+    	    .join('&');
+    		
+    		xhr.onreadystatechange = function() {
+		        if (xhr.readyState === 4 && xhr.status === 200) {
+		            console.log(xhr.responseText);
+		        }
+		    };
+		    
+			xhr.send(encodedData);
+    	}
+    </script>
 	<script src="JS/mypage.js" type="text/javascript"></script>
 </body>
 </html>

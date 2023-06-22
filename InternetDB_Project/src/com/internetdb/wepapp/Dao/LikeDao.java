@@ -19,7 +19,7 @@ public class LikeDao {
     }
 
     public boolean addNewLike(LikeReq likeReq) {
-        String query = "insert into Like(post_idx, user_idx) values (?, ?)";
+        String query = "insert into `Like`(post_idx, user_idx) values (?, ?)";
         int n = 0;
         try {
             preparedStatement = connection.prepareStatement(query);

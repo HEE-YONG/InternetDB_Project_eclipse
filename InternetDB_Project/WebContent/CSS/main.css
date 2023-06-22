@@ -223,15 +223,8 @@ input[id*="answer"]:not(checked) + label span {
 }
 
 .like_req {
-	position: fixed;
-	top: 530px;
-	left: 380px;
-}
-
-.like_non_req {
-	position: fixed;
-	top: 530px;
-	left: 380px;
+	position: absolute;
+	margin: 10px;
 }
 
 .like_count {
