@@ -228,6 +228,25 @@ input[id*="answer"]:not(checked) + label span {
 	left: 380px;
 }
 
+.like_non_req {
+	position: fixed;
+	top: 530px;
+	left: 380px;
+}
+
+.like_count {
+    position: relative;
+    display: inline-block;
+}
+
+.like_req label {
+	cursor: pointer;
+	color: white;
+}
+
+
+
+
 /************************************   new-post-modal   ******************************************/
 
 .plus_badge {

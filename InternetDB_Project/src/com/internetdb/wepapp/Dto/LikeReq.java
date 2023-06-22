@@ -1,8 +1,14 @@
 package com.internetdb.wepapp.Dto;
 
-public class Like {
+public class LikeReq {
 	private int post_idx;
 	private int user_idx;
+	
+	public LikeReq(int post_idx, int user_idx) {
+		super();
+		this.post_idx = post_idx;
+		this.user_idx = user_idx;
+	}
 	
 	public int getPost_idx() {
 		return post_idx;
@@ -14,11 +20,6 @@ public class Like {
 		return user_idx;
 	}
 	public void setUser_idx(int user_idx) {
-		this.user_idx = user_idx;
-	}
-	
-	public Like(int post_idx, int user_idx) {
-		this.post_idx = post_idx;
 		this.user_idx = user_idx;
 	}
 }

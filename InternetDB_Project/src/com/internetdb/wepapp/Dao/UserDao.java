@@ -1,13 +1,8 @@
 package com.internetdb.wepapp.Dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.internetdb.wepapp.DBConnection;
-import com.internetdb.wepapp.Dto.FeedRes;
 import com.internetdb.wepapp.Dto.PostLoginReq;
 import com.internetdb.wepapp.Dto.PostLoginRes;
 import com.internetdb.wepapp.Dto.User;
@@ -24,17 +19,17 @@ public class UserDao {
     }
     
     public boolean addNewUser(User user) {
-        String query = "insert into User(user_idx, user_email, user_pw, profile_image, member_introduce, user_nickname) values (?, ?, ?, ?, ?, ?)";
+        String query = "insert into User(user_email, user_pw, profile_image, member_introduce, user_nickname, user_location) values (?, ?, ?, ?, ?, ?)";
         int n = 0;
 
         try {
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setInt(1, user.getUser_idx());
-            preparedStatement.setString(2, user.getUser_email());
-            preparedStatement.setString(3, user.getUser_pw());
-            preparedStatement.setString(4, user.getProfile_image());
-            preparedStatement.setString(5, user.getMember_introduce());
-            preparedStatement.setString(6, user.getUser_nickname());
+            preparedStatement.setString(1, user.getUser_email());
+            preparedStatement.setString(2, user.getUser_pw());
+            preparedStatement.setString(3, user.getProfile_image());
+            preparedStatement.setString(4, user.getMember_introduce());
+            preparedStatement.setString(5, user.getUser_nickname());
+            preparedStatement.setString(6, user.getUser_location());
 
             n = preparedStatement.executeUpdate();
 
