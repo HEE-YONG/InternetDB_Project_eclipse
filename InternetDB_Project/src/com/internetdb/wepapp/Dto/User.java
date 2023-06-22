@@ -1,18 +1,22 @@
 package com.internetdb.wepapp.Dto;
+
 public class User {
-	private int user_idx;
 	private String user_email;
 	private String user_pw;
 	private String profile_image;
 	private String member_introduce;
 	private String user_nickname;
+	private String user_location;
 	
-	public int getUser_idx() {
-		return user_idx;
+	public User(String user_email, String user_pw, String profile_image, String member_introduce, String user_nickname, String user_location) {
+		this.user_email = user_email;
+		this.user_pw = user_pw;
+		this.profile_image = profile_image;
+		this.member_introduce = member_introduce;
+		this.user_nickname = user_nickname;
+		this.user_location = user_location;
 	}
-	public void setUser_idx(int user_idx) {
-		this.user_idx = user_idx;
-	}
+	
 	public String getUser_email() {
 		return user_email;
 	}
@@ -43,12 +47,10 @@ public class User {
 	public void setUser_nickname(String user_nickname) {
 		this.user_nickname = user_nickname;
 	}
-		
-	public User(int user_idx, String user_email, String user_pw, String profile_image, String member_introduce, String user_nickname) {
-		this.user_idx = user_idx;
-		this.user_email = user_email;
-		this.user_pw = user_pw;
-		this.profile_image = profile_image;
-		this.user_nickname = user_nickname;
+	public String getUser_location() {
+		return user_location;
+	}
+	public void setUser_location(String user_location) {
+		this.user_location = user_location;
 	}
 }

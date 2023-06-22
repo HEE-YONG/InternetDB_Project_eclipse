@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.internetdb.wepapp.Dto.FeedRes" %>
 <%@ page import="com.internetdb.wepapp.Dto.CommentRes" %>
+<%@ page import="com.internetdb.wepapp.Dto.LikeRes" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.internetdb.wepapp.Servlet.PostServlet" %>
 <%@ page import="com.internetdb.wepapp.Dao.PostDao" %>
 <%@ page import="com.internetdb.wepapp.Dao.CommentDao" %>
+<%@ page import="com.internetdb.wepapp.Dao.LikeDao" %>
 
 <!DOCTYPE html>
 <html data-wf-domain="newport-template.webflow.io" data-wf-page="5e4b16080b25ed0d294d526a"
@@ -19,6 +21,7 @@
           type="text/css">
     <link href="https://fonts.googleapis.com/" rel="preconnect">
     <link href="https://fonts.gstatic.com/" rel="preconnect" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="./Example Page - Webflow Template_files/webfont.js.다운로드" type="text/javascript"></script>
     <link rel="stylesheet" href="./Example Page - Webflow Template_files/css" media="all">
     <link rel="stylesheet" href="CSS/css.css">
@@ -226,6 +229,16 @@
 	  	</div>
 	  	<%} %>
     </div>
+    <div class="like-section">
+    	<%
+    		LikeDao likeDao = new LikeDao();
+    		List<LikeRes> likeList = likeDao.countLike();
+    		
+    		for(LikeRes like : likeList) {
+    	%>
+    		<input id="like<%= like.getPost_idx() %>" type="hidden" value="<%= like.getLike_count() %>">
+    	<%} %>
+    </div>
     <div class="footer wf-section">
         <div class="w-container">
             <div>
@@ -277,19 +290,23 @@
                     </div>
                     <% } else {}%>
                 </div>
-				<div class="w3-border w3-center w3-padding">
-				<c:if test="${ id == null }">
-					추천 기능은 <button type="button" id="newLogin"><b class="w3-text-blue">로그인</b></button> 후 사용 가능합니다.<br />
-					<i class="fa fa-heart" style="font-size:16px;color:red"></i>
-					<span class="rec_count"></span>					
-				</c:if>
-				<c:if test="${ id != null }">
-					<button class="w3-button w3-black w3-round" id="rec_update">
-						<i class="fa fa-heart" style="font-size:16px;color:red"></i>
-						&nbsp;<span class="rec_count"></span>
-					</button> 
-				</c:if>
+                <div class="like_req">
+				<% 
+					if (user_idx != null) {
+				%>
+				<label onclick="like_onclick()" onmouseover="like_hover()" onmouseout="like_out()"> <!-- 로그인 시 click 가능 + 빨간 하트되도록 함수 구현 -->
+				<% } else { %>
+				<label>
+				<% } %>
+					<i id="heart" style="font-size:32px;" class="fa like_count">&#xf08a;</i> <!-- else. 미로그인 시 클릭 불가능. 좋아요 수는 볼 수 있음 -->
+					<span id="like_count" class="like_count" style="font-size: 20px; font-weight: bold; vertical-align: 3.5px; margin-left: 5px;">0</span>
+				</label>
 				</div>
+				<!--  
+				<div class="like_non_req">
+					<i style="font-size:32px" class="fa">&#xf08a;</i>
+					<span class="like_count" style="font-size: 20px; font-weight: bold; vertical-align: 3.5px; margin-left: 5px;">0</span>
+				</div>-->
             </div>
         </div>
     </div>
@@ -363,6 +380,44 @@
     <script src="JS/main.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {$(".w-webflow-badge").removeClass("w-webflow-badge").empty(); });
+    </script>
+    <script>
+    	function like_hover() {
+    		var heart = document.getElementById("heart");
+    		var like_count = document.getElementById("like_count");
+    		
+    		heart.style.color = "red";
+    		like_count.style.color = "red";
+    	}
+    	
+    	function like_out() {
+    		var heart = document.getElementById("heart");
+    		var like_count = document.getElementById("like_count");
+    		
+    		heart.style.color = "white";
+    		like_count.style.color = "white";	
+    	}
+    	
+    	function like_onclick() {
+    		var post_idx = document.getElementById("post_idx_hidden").value;
+    	    var user_idx = <%= user_idx %> + "";
+    	    
+    		var like_count = document.getElementById("like_count");
+    		like_count.innerText++;
+			
+    		var formData = new FormData();
+    		formData.append("user_idx", user_idx);
+    		formData.append("post_idx", post_idx);
+    		
+    	    var xhr = new XMLHttpRequest();
+    		xhr.open("POST", "like-servlet", true);
+		    xhr.onreadystatechange = function() {
+		        if (xhr.readyState === 4 && xhr.status === 200) {
+		            console.log(xhr.responseText);
+		        }
+		    };
+			xhr.send(formData);
+    	}
     </script>
 </body>
 </html>

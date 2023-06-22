@@ -116,6 +116,20 @@ function viewModalContent(event) {
 	  
 	  var modalCommentInputPostIdx = modalWrapper.querySelector(".comment_post_idx");
 	  modalCommentInputPostIdx.value = post_idx;
+	  
+	  var likeCount = document.getElementById("like_count");
+	  var likePost = document.querySelector(".like-section #like" + post_idx).value;
+	  
+	  console.log(likePost);
+	  
+	  likeCount.innerText = likePost;
+	  
+	  var post_idx_hidden = document.createElement("input");
+	  post_idx_hidden.type = "hidden";
+	  post_idx_hidden.value = post_idx;
+	  post_idx_hidden.id = "post_idx_hidden";
+	  
+	  document.body.appendChild(post_idx_hidden);
 }
 
 
