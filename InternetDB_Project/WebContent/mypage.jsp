@@ -80,9 +80,13 @@
 }
 
 .modal {
-	height: 580px;
-}
 
+	height: 580px;
+	z-index:9999;
+}
+.footer{
+	z-index: -10;
+}
 </style>
 <body>
 	<div data-collapse="medium" data-animation="default"
